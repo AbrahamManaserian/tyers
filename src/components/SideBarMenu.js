@@ -323,13 +323,13 @@ export function DrawerSideBarMenu() {
           onKeyDown={toggleDrawer(false)}
           sx={{
             overflow: 'scroll',
-            padding: '10px 5px 0 0',
+            padding: '10px 5px 0 10px',
             display: 'flex',
             height: '98vh',
             flexDirection: 'column',
             alignItems: 'center',
             width: '280px',
-            borderRightStyle: 'dashed',
+            // borderRightStyle: 'dashed',
             borderWidth: 1,
             borderColor: '#e0e0e0',
             alignItems: 'flex-start',

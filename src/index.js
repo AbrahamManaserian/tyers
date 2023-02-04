@@ -13,6 +13,8 @@ import CustomersPage from './pages/CustomersPage';
 import SalesPage from './pages/SalesPage';
 import NewsPage from './pages/NewsPage';
 import PartnersPage from './pages/PartnersPage';
+import SignIn from './pages/SignInPage';
+import SignUp from './pages/SignUpPage';
 
 const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ const router = createBrowserRouter([
       {
         path: '/partners',
         element: <PartnersPage />,
+      },
+      {
+        path: '/signin',
+        element: <SignIn />,
+      },
+      {
+        path: '/signup',
+        element: <SignUp />,
       },
     ],
   },

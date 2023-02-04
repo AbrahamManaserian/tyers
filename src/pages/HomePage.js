@@ -1,6 +1,5 @@
-import { Button, Grid, Typography } from '@mui/material';
+import { Grid, Typography } from '@mui/material';
 import { useContext } from 'react';
-import { Outlet } from 'react-router-dom';
 import { AppContext } from '../App';
 
 export default function HomePage() {

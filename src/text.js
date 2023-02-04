@@ -44,4 +44,82 @@ export const textSideBar = {
     ru: 'Новости',
     am: 'Նորություններ',
   },
+  signIn: {
+    en: 'Sign in',
+    ru: 'Войти',
+    am: 'Մուտք',
+  },
+};
+
+export const textSignInUp = {
+  signIn: {
+    en: 'Sign in',
+    ru: 'Войти',
+    am: 'Մուտք',
+  },
+  email: {
+    en: 'Email Address',
+    ru: 'Электронная почта',
+    am: 'Էլեկտրոնային հասցե',
+  },
+  password: {
+    en: 'Password',
+    ru: 'Пароль',
+    am: 'Գաղտնաբառ',
+  },
+  remember: {
+    en: 'Password',
+    ru: 'Запомнить меня',
+    am: 'Հիշիր ինձ',
+  },
+  signInGoogle: {
+    en: ' Sign in with Google',
+    ru: 'Войти через Google',
+    am: 'Մուտք գործեք Google-ով',
+  },
+  forgotPassword: {
+    en: 'Forgot password?',
+    ru: 'Забыли пароль?',
+    am: 'Մոռացել եք գաղտնաբառը?',
+  },
+  noAcount: {
+    en: "Don't have an account? Sign Up",
+    ru: 'У вас нет аккаунта? Зарегистрироваться',
+    am: 'Չունե՞ք հաշիվ: Գրանցվել',
+  },
+  signUp: {
+    en: 'Sign up',
+    ru: 'Зарегистрироваться',
+    am: 'Գրանցվել',
+  },
+  name: {
+    en: 'First Name',
+    ru: 'Имя',
+    am: 'Անուն',
+  },
+  srName: {
+    en: 'Last Name',
+    ru: 'Фамилия',
+    am: 'Ազգանուն',
+  },
+  getNot: {
+    en: 'I want to receive inspiration, marketing promotions and updates via email.',
+    ru: 'Я хочу получать вдохновение, маркетинговые акции и обновления по электронной почте.',
+    am: 'Ես ուզում եմ ստանալ ոգեշնչում, մարքեթինգային առաջխաղացումներ և թարմացումներ էլփոստի միջոցով:',
+  },
+  signUpGoogle: {
+    en: 'Sign up with Google',
+    ru: 'Зарегистрируйтесь в Google',
+    am: 'Գրանցվեք Google-ի հետ',
+  },
+  haveAccount: {
+    en: 'Already have an account? Sign in',
+    ru: 'У вас уже есть аккаунт? Войти',
+    am: 'Արդեն ունեք հաշիվ? Մուտք գործել',
+  },
+  //   srName: {
+  //     en: 'Last Name *',
+  //     ru: 'Фамилия *',
+  //     am: 'Ազգանուն *',
+  //   },
 };

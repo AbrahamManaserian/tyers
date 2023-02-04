@@ -1,14 +1,14 @@
 import { createContext, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import SideBarMenu, { DrawerSideBarMenu } from './components/SideBarMenu';
+import SideBarMenu from './components/SideBarMenu';
 import './App.css';
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { Box, createTheme, CssBaseline, Grid, ThemeProvider, Typography } from '@mui/material';
+import { createTheme, CssBaseline, Grid, ThemeProvider } from '@mui/material';
 import TopBarMenu from './components/TopBarMenu';
-import { amber, deepOrange, grey } from '@mui/material/colors';
+import DrawerSideBarMenu from './components/DrawerSideBar';
 
 export const AppContext = createContext();
 export const getDesignTokens = (mode) => ({
@@ -23,6 +23,9 @@ export const getDesignTokens = (mode) => ({
           greenCustome: {
             main: '#00c853',
             light: '#e8f5e9',
+          },
+          greyCustom: {
+            main: '#37474f',
           },
 
           // palette values for light mode
@@ -49,10 +52,67 @@ export const getDesignTokens = (mode) => ({
             default: '#212121',
             // paper: deepOrange[900],
           },
+          greyCustom: {
+            main: '#cfd8dc',
+          },
           // text: {
           //   primary: '#fff',
           //   secondary: grey[500],
           // },
+        }),
+  },
+  components: {
+    mode,
+    ...(mode === 'light'
+      ? {
+          MuiButton: {
+            variants: [
+              {
+                props: { variant: 'custom' },
+                style: {
+                  textTransform: 'none',
+                  color: '#546e7a',
+                  padding: '2px 2px 2px 0',
+                  fontSize: '15px',
+                  borderRadius: '9px',
+                  '&:hover': {
+                    background: '#eeeeee',
+                  },
+                },
+              },
+              // {
+              //   props: { variant: 'dashed', color: 'secondary' },
+              //   style: {
+              //     border: `4px dashed #37474f`,
+              //   },
+              // },
+            ],
+          },
+        }
+      : {
+          MuiButton: {
+            variants: [
+              {
+                props: { variant: 'custom' },
+                style: {
+                  textTransform: 'none',
+                  color: '#cfd8dc',
+                  padding: '2px 2px 2px 0',
+                  fontSize: '15px',
+                  borderRadius: '9px',
+                  '&:hover': {
+                    background: '#616161',
+                  },
+                },
+              },
+              // {
+              //   props: { variant: 'dashed', color: 'secondary' },
+              //   style: {
+              //     border: `4px dashed '#37474f'`,
+              //   },
+              // },
+            ],
+          },
         }),
   },
 });

@@ -46,15 +46,14 @@ export default function DrawerSideBarMenu() {
   return (
     <Box
       sx={{
+        bgcolor: 'background.default',
         display: { xs: 'flex', lg: 'none' },
-        '&:hover': { bgcolor: '#eeeeee' },
-        marginTop: '4px',
-        // cursor: 'pointer',
-        padding: '8px',
-        borderRadius: '50%',
+        padding: '8px 8px 7px 8px',
       }}
     >
-      <FormatListBulletedIcon cursor="pointer" onClick={toggleDrawer(true)} />
+      <Box sx={{ borderRadius: '50%', '&:hover': { bgcolor: '#eeeeee' }, display: 'flex', padding: '8px' }}>
+        <FormatListBulletedIcon cursor="pointer" onClick={toggleDrawer(true)} />
+      </Box>
       <Drawer anchor="left" open={openDrawer} onClose={toggleDrawer(false)}>
         <Box
           onClick={toggleDrawer(false)}
@@ -67,9 +66,7 @@ export default function DrawerSideBarMenu() {
             flexDirection: 'column',
             alignItems: 'center',
             width: '280px',
-            // borderRightStyle: 'dashed',
-            borderWidth: 1,
-            borderColor: '#e0e0e0',
+
             alignItems: 'flex-start',
           }}
         >

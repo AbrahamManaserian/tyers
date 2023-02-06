@@ -6,7 +6,7 @@ import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
-import { createTheme, CssBaseline, Grid, ThemeProvider } from '@mui/material';
+import { Box, createTheme, CssBaseline, Grid, ThemeProvider, Typography } from '@mui/material';
 import TopBarMenu from './components/TopBarMenu';
 import DrawerSideBarMenu from './components/DrawerSideBar';
 
@@ -125,26 +125,52 @@ function App() {
   const [language, setLanguage] = useState(localLanguage || '1');
   const theme = createTheme(getDesignTokens(darkMode || 'light'));
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <AppContext.Provider
-        value={{
-          language: language,
-          setLanguage: setLanguage,
-          darkMode: darkMode,
-          setDarkMode: setDarkMode,
-        }}
-      >
-        <Grid item container xs={12} padding="0 8px 0 8px" alignItems="flex-start">
-          <SideBarMenu />
-          <Grid item xs container alignItems="center">
-            <DrawerSideBarMenu />
-            <TopBarMenu />
-            <Outlet />
+    <div style={{ position: 'relative' }}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <AppContext.Provider
+          value={{
+            language: language,
+            setLanguage: setLanguage,
+            darkMode: darkMode,
+            setDarkMode: setDarkMode,
+          }}
+        >
+          <Grid item container xs={12} alignItems="flex-start">
+            {/* <div
+              style={{
+                position: '-webkit-sticky',
+                position: 'sticky',
+                top: 0,
+                
+              }}
+            > */}
+            <SideBarMenu />
+            {/* </div> */}
+            <Grid item xs container alignItems="center">
+              <Grid
+                item
+                xs
+                container
+                alignItems="center"
+                sx={{
+                  // boxShadow: '0 1px 8px -10px rgba(0, 0, 0, 0.1), 0 7px 10px 0 rgba(0, 0, 0, 0.1)',
+                  boxShadow: '0 1px 8px -10px rgb(117, 117, 117, 0.1), 0 7px 10px 0 rgb(117, 117, 117, 0.2)',
+                  position: '-webkit-sticky',
+                  position: 'sticky',
+                  top: 0,
+                  zIndex: 2,
+                }}
+              >
+                <DrawerSideBarMenu />
+                <TopBarMenu />
+              </Grid>
+              <Outlet />
+            </Grid>
           </Grid>
-        </Grid>
-      </AppContext.Provider>
-    </ThemeProvider>
+        </AppContext.Provider>
+      </ThemeProvider>
+    </div>
   );
 }
 

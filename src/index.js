@@ -15,6 +15,7 @@ import NewsPage from './pages/NewsPage';
 import PartnersPage from './pages/PartnersPage';
 import SignIn from './pages/SignInPage';
 import SignUp from './pages/SignUpPage';
+import BasketPage from './pages/BusketPage';
 
 const router = createBrowserRouter([
   {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: '/signup',
         element: <SignUp />,
+      },
+      {
+        path: '/basket',
+        element: <BasketPage />,
       },
     ],
   },

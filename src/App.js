@@ -46,7 +46,7 @@ export const getDesignTokens = (mode) => ({
           },
           greenCustome: {
             main: '#00c853',
-            light: '#e8f5e9',
+            light: '#454944',
           },
           background: {
             default: '#212121',
@@ -137,16 +137,7 @@ function App() {
           }}
         >
           <Grid item container xs={12} alignItems="flex-start">
-            {/* <div
-              style={{
-                position: '-webkit-sticky',
-                position: 'sticky',
-                top: 0,
-                
-              }}
-            > */}
             <SideBarMenu />
-            {/* </div> */}
             <Grid item xs container alignItems="center">
               <Grid
                 item
@@ -155,7 +146,7 @@ function App() {
                 alignItems="center"
                 sx={{
                   // boxShadow: '0 1px 8px -10px rgba(0, 0, 0, 0.1), 0 7px 10px 0 rgba(0, 0, 0, 0.1)',
-                  boxShadow: '0 1px 8px -10px rgb(117, 117, 117, 0.1), 0 7px 10px 0 rgb(117, 117, 117, 0.2)',
+                  boxShadow: '0 1px 8px -10px rgb(117, 117, 117, 0.1), 0 7px 10px 0 rgb(117, 117, 117, 0.1)',
                   position: '-webkit-sticky',
                   position: 'sticky',
                   top: 0,

@@ -16,6 +16,8 @@ import PartnersPage from './pages/PartnersPage';
 import SignIn from './pages/SignInPage';
 import SignUp from './pages/SignUpPage';
 import BasketPage from './pages/BusketPage';
+import BalancePage from './pages/BalancePage';
+import TruckTyresPage from './pages/TruckTyresPage';
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,12 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <HomePage />,
+        children: [
+          {
+            path: '/:truck-tyres',
+            element: <div>Abraham</div>,
+          },
+        ],
       },
       {
         path: '/about',
@@ -54,6 +62,14 @@ const router = createBrowserRouter([
       {
         path: '/partners',
         element: <PartnersPage />,
+      },
+      {
+        path: '/balance',
+        element: <BalancePage />,
+      },
+      {
+        path: '/truck-tyres',
+        element: <TruckTyresPage />,
       },
       {
         path: '/signin',

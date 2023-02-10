@@ -9,7 +9,18 @@ export default function FlagMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const context = React.useContext(AppContext);
-  const [flag, setFlag] = React.useState(+context.language);
+  const [flag, setFlag] = React.useState(checkLanguage());
+  function checkLanguage() {
+    if (+context.language) {
+      if (+context.language < 4 && +context.language > 0) {
+        return +context.language;
+      } else {
+        return 1;
+      }
+    } else {
+      return 1;
+    }
+  }
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };

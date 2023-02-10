@@ -2,7 +2,16 @@ import { Box, Typography } from '@mui/material';
 import { useContext, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../images/logoTyres.png';
-import { AboutIcon, NewsIcon, PartnerIcon, SaleIcon, TyreIcon, UserIcon, WheelIcon } from '../SVGIcons';
+import {
+  AboutIcon,
+  NewsIcon,
+  PartnerIcon,
+  SaleIcon,
+  TyreBalanceIcon,
+  TyreIcon,
+  UserIcon,
+  WheelIcon,
+} from '../SVGIcons';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import Drawer from '@mui/material/Drawer';
 import { AppContext } from '../App';
@@ -229,6 +238,24 @@ export default function DrawerSideBarMenu() {
               }}
             >
               {getText('about')}
+            </Typography>
+          </Link>
+          <Link
+            className="linko"
+            to="/balance"
+            style={{ backgroundColor: location.pathname === '/balance' ? '#e8f5e9' : '' }}
+          >
+            <Box sx={{ padding: '0 15px 0 15px', display: 'flex' }}>
+              <TyreBalanceIcon color={getColorOfIcon('/balance')} />
+            </Box>
+            <Typography
+              color={location.pathname === '/balance' ? 'greenCustome.main' : 'neutral.main'}
+              sx={{
+                fontSize: '16px',
+                fontWeight: location.pathname === '/balance' ? 500 : 400,
+              }}
+            >
+              {getText('balance')}
             </Typography>
           </Link>
         </Box>

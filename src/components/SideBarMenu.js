@@ -4,7 +4,16 @@ import { Link, useLocation } from 'react-router-dom';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import Logo from '../images/logoTyres.png';
-import { AboutIcon, NewsIcon, PartnerIcon, SaleIcon, TyreIcon, UserIcon, WheelIcon } from '../SVGIcons';
+import {
+  AboutIcon,
+  NewsIcon,
+  PartnerIcon,
+  SaleIcon,
+  TyreBalanceIcon,
+  TyreIcon,
+  UserIcon,
+  WheelIcon,
+} from '../SVGIcons';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import { AppContext } from '../App';
 import { textSideBar } from '../text';
@@ -49,7 +58,7 @@ export default function SideBarMenu(props) {
         display: { xs: 'none', lg: 'flex' },
         height: '100vh',
         flexDirection: 'column',
-        width: menuLength ? '280px' : '80px',
+        width: menuLength ? '280px' : '100px',
         borderRightStyle: 'dashed',
         borderWidth: 1,
         borderColor: '#e0e0e0',
@@ -64,8 +73,8 @@ export default function SideBarMenu(props) {
           justifyContent: 'center',
           alignItems: 'center',
           position: 'fixed',
-          top: '20px',
-          left: menuLength ? '267px' : '67px',
+          top: '15px',
+          left: menuLength ? '267px' : '87px',
           borderStyle: 'dashed',
           borderRadius: '50%',
           height: '25px',
@@ -86,7 +95,7 @@ export default function SideBarMenu(props) {
       <Link
         style={{
           flexDirection: menuLength ? 'row' : 'column',
-          backgroundColor: location.pathname === '/' ? '#e8f5e9' : '',
+          backgroundColor: location.pathname === '/' || location.pathname === '/truck-tyres' ? '#e8f5e9' : '',
         }}
         className="linko"
         to="/"
@@ -95,15 +104,22 @@ export default function SideBarMenu(props) {
           <HomeOutlinedIcon
             sx={{
               fontSize: '30px',
-              color: location.pathname === '/' ? 'greenCustome.main' : 'neutral.main',
+              color:
+                location.pathname === '/' || location.pathname === '/truck-tyres'
+                  ? 'greenCustome.main'
+                  : 'neutral.main',
             }}
           />
         </Box>
         <Typography
-          color={location.pathname === '/' ? 'greenCustome.main' : 'neutral.main'}
+          color={
+            location.pathname === '/' || location.pathname === '/truck-tyres'
+              ? 'greenCustome.main'
+              : 'neutral.main'
+          }
           sx={{
             fontSize: menuLength ? '16px' : '10px',
-            fontWeight: location.pathname === '/' ? 500 : 400,
+            fontWeight: location.pathname === '/' || location.pathname === '/truck-tyres' ? 500 : 400,
           }}
         >
           {getText('choose')}
@@ -218,9 +234,6 @@ export default function SideBarMenu(props) {
         style={{
           flexDirection: menuLength ? 'row' : 'column',
           backgroundColor: location.pathname === '/partners' ? '#e8f5e9' : '',
-          '&:hover': {
-            backgroundColor: 'red',
-          },
         }}
         className="linko"
         to="/partners"
@@ -257,6 +270,28 @@ export default function SideBarMenu(props) {
           }}
         >
           {getText('about')}
+        </Typography>
+      </Link>
+      <Link
+        style={{
+          flexDirection: menuLength ? 'row' : 'column',
+          backgroundColor: location.pathname === '/balance' ? '#e8f5e9' : '',
+        }}
+        className="linko"
+        to="/balance"
+      >
+        <Box sx={{ padding: '5px 10px 0 15px', display: 'flex' }}>
+          <TyreBalanceIcon color={getColorOfIcon('/balance')} />
+        </Box>
+        <Typography
+          color={location.pathname === '/balance' ? 'greenCustome.main' : 'neutral.main'}
+          sx={{
+            fontSize: menuLength ? '16px' : '10px',
+            textAlign: !menuLength ? 'center' : 'left',
+            fontWeight: location.pathname === '/balance' ? 500 : 400,
+          }}
+        >
+          {getText('balance')}
         </Typography>
       </Link>
     </Box>

@@ -39,6 +39,11 @@ export const textSideBar = {
     ru: 'О нас',
     am: 'Մեր մասին',
   },
+  balance: {
+    en: 'Tire fitting',
+    ru: 'Шиномонтаж',
+    am: 'Անվադողերի տեղադրում',
+  },
   news: {
     en: 'News',
     ru: 'Новости',
@@ -122,4 +127,32 @@ export const textSignInUp = {
   //     ru: 'Фамилия *',
   //     am: 'Ազգանուն *',
   //   },
+};
+
+export const textHomePage = {
+  passenger: {
+    en: 'Passenger cars',
+    ru: 'Легковым авто',
+    am: 'Մարդատար մեքենաներին',
+  },
+  trucks: {
+    en: 'Trucks',
+    ru: 'Грузовикам',
+    am: 'Բեռնատարներին',
+  },
+  chooseTyre: {
+    en: 'Choose tyre',
+    ru: 'Выбрать шин',
+    am: 'Ընտրեք անվադող',
+  },
+  chooseWheel: {
+    en: 'Choose wheel',
+    ru: 'Выбирать колесо',
+    am: 'Ընտրեք անիվներ',
+  },
+  chooseWheel: {
+    en: 'Choose wheel',
+    ru: 'Выбирать колесо',
+    am: 'Ընտրեք անիվներ',
+  },
 };

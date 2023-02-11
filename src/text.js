@@ -142,7 +142,7 @@ export const textHomePage = {
   },
   chooseTyre: {
     en: 'Choose tyre',
-    ru: 'Выбрать шин',
+    ru: 'Выбирать шин',
     am: 'Ընտրեք անվադող',
   },
   chooseWheel: {
@@ -150,9 +150,34 @@ export const textHomePage = {
     ru: 'Выбирать колесо',
     am: 'Ընտրեք անիվներ',
   },
-  chooseWheel: {
-    en: 'Choose wheel',
-    ru: 'Выбирать колесо',
-    am: 'Ընտրեք անիվներ',
+  width: {
+    en: 'Width',
+    ru: 'Ширина',
+    am: 'Լայնությունը',
+  },
+  profile: {
+    en: 'Profile',
+    ru: 'Профиль',
+    am: 'Պրոֆիլ',
+  },
+  diameter: {
+    en: 'Diameter',
+    ru: 'Диаметр',
+    am: 'Տրամագիծը',
+  },
+  summer: {
+    en: 'Summer',
+    ru: 'Летние',
+    am: 'Ամառային',
+  },
+  winter: {
+    en: 'Winter',
+    ru: 'Зимние',
+    am: 'Ձմեռային',
+  },
+  allSeason: {
+    en: 'All season',
+    ru: 'Всесезонная',
+    am: 'Ամբողջ սեզոնի',
   },
 };

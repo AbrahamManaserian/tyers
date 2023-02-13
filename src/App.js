@@ -80,12 +80,48 @@ export const getDesignTokens = (mode) => ({
                   },
                 },
               },
+              {
+                props: { variant: 'customHome' },
+                style: {
+                  margin: '2px',
+                  borderStyle: 'solid',
+                  borderWidth: 0.2,
+                  textTransform: 'none',
+                  color: '#546e7a',
+                  padding: '2px 2px 2px 2px',
+
+                  '@media (min-width:600px)': {
+                    fontSize: '14px',
+                    minWidth: '100px',
+                  },
+                  minWidth: '80px',
+                  borderRadius: '9px',
+                  fontSize: '10px',
+                  // '&:hover': {
+                  //   background: '#eeeeee',
+                  // },
+                },
+              },
               // {
               //   props: { variant: 'dashed', color: 'secondary' },
               //   style: {
               //     border: `4px dashed #37474f`,
               //   },
               // },
+            ],
+          },
+          MuiTypography: {
+            variants: [
+              {
+                props: { variant: 'settingsSmall' },
+                style: {
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  textDecorationLine: 'underline',
+                  textUnderlineOffset: '5px',
+                  // color: '#9c27b0',
+                },
+              },
             ],
           },
         }
@@ -105,12 +141,45 @@ export const getDesignTokens = (mode) => ({
                   },
                 },
               },
+              {
+                props: { variant: 'customHome' },
+                style: {
+                  margin: '2px',
+                  borderStyle: 'solid',
+                  borderWidth: 0.2,
+                  textTransform: 'none',
+                  color: '#cfd8dc',
+                  padding: '2px 2px 2px 0',
+                  borderRadius: '9px',
+                  '@media (min-width:600px)': {
+                    fontSize: '14px',
+                    minWidth: '100px',
+                  },
+                  minWidth: '80px',
+                  fontSize: '10px',
+                  // '&:hover': {
+                  //   background: '#616161',
+                  // },
+                },
+              },
               // {
               //   props: { variant: 'dashed', color: 'secondary' },
               //   style: {
               //     border: `4px dashed '#37474f'`,
               //   },
               // },
+            ],
+          },
+          MuiTypography: {
+            variants: [
+              {
+                props: { variant: 'settingsSmall' },
+                style: {
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  // color: '#ba68c8',
+                },
+              },
             ],
           },
         }),
@@ -166,3 +235,5 @@ function App() {
 }
 
 export default App;
+
+

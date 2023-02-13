@@ -131,24 +131,24 @@ export const textSignInUp = {
 
 export const textHomePage = {
   passenger: {
-    en: 'Passenger cars',
-    ru: 'Легковым авто',
-    am: 'Մարդատար մեքենաներին',
+    en: 'Passenger',
+    ru: 'Легковым',
+    am: 'Մարդատար',
   },
   trucks: {
     en: 'Trucks',
     ru: 'Грузовикам',
-    am: 'Բեռնատարներին',
+    am: 'Բեռնատար',
   },
   chooseTyre: {
-    en: 'Choose tyre',
-    ru: 'Выбирать шин',
-    am: 'Ընտրեք անվադող',
+    en: 'Tyres',
+    ru: 'Шины',
+    am: 'Անվադողեր',
   },
   chooseWheel: {
-    en: 'Choose wheel',
-    ru: 'Выбирать колесо',
-    am: 'Ընտրեք անիվներ',
+    en: 'Wheels',
+    ru: 'Колеса',
+    am: 'Անիվներ',
   },
   width: {
     en: 'Width',
@@ -168,16 +168,36 @@ export const textHomePage = {
   summer: {
     en: 'Summer',
     ru: 'Летние',
-    am: 'Ամառային',
+    am: 'Ամառ',
   },
   winter: {
     en: 'Winter',
     ru: 'Зимние',
-    am: 'Ձմեռային',
+    am: 'Ձմեռ',
   },
   allSeason: {
     en: 'All season',
     ru: 'Всесезонная',
     am: 'Ամբողջ սեզոնի',
+  },
+  search: {
+    en: 'Search',
+    ru: 'Поиск',
+    am: 'Փնտրել',
+  },
+  bolt: {
+    en: 'Вылет',
+    ru: 'Вылет',
+    am: 'Вылет',
+  },
+  uniquePrice: {
+    en: 'Price for one',
+    ru: 'Цена за штуку',
+    am: 'Մեկ հատի գինը',
+  },
+  settings: {
+    en: 'Extra options',
+    ru: 'Дополнительные параметры',
+    am: 'Լրացուցիչ պարամետրեր',
   },
 };

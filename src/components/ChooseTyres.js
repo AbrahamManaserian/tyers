@@ -54,7 +54,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                   },
                 }}
               >
-                <MenuItem value="all">
+                <MenuItem value="">
                   <em>{getText('all')} </em>
                 </MenuItem>
                 {widthPassenger.map((item, index) => {
@@ -84,7 +84,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                   },
                 }}
               >
-                <MenuItem value="all">
+                <MenuItem value="">
                   <em>{getText('all')}</em>
                 </MenuItem>
                 {profilePassenger.map((item, index) => {
@@ -114,7 +114,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                   },
                 }}
               >
-                <MenuItem value="all">
+                <MenuItem value="">
                   <em>{getText('all')}</em>
                 </MenuItem>
                 {diameterPassenger.map((item, index) => {

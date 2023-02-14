@@ -29,9 +29,9 @@ export default function HomePage() {
   const [chooseTyre, setChooseTyre] = useState('tyre');
   const [choosePassenger, setChoosePassenger] = useState(location.pathname === '/' ? '/' : 'truck-tyres');
   const [inputs, setInputs] = useState({
-    width: 'all',
-    profile: 'all',
-    diameter: 'all',
+    width: '',
+    profile: '',
+    diameter: '',
     summer: false,
     winter: false,
     allSeason: false,

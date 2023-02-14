@@ -18,8 +18,21 @@ import Image6 from '../images/tyres/6.webp';
 import Image7 from '../images/tyres/7.webp';
 import Image8 from '../images/tyres/8.webp';
 import Image9 from '../images/tyres/9.webp';
+import TyreCard from '../components/TyreCard';
 
 const arr = [Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9];
+const tyreNames = [
+  'Nokian Tyres Hakka Van',
+  'Continental ContiPremiumContact 5',
+  'Continental Conti4x4Contact',
+  'Goodyear EfficientGrip Performance 2',
+  'Pirelli Cinturato P1 Verde',
+  'Pirelli Formula Energy',
+  'Kama Breeze (НК-132)',
+  'Tigar High Performance',
+  'Maxxis Bravo AT-771',
+  'Maxxis Presa SUV SS-01',
+];
 
 export default function HomePage() {
   const [price, setPrice] = useState([1, 200]);
@@ -153,9 +166,10 @@ export default function HomePage() {
         >
           {arr.map((item, index) => {
             return (
-              <Box key={index} sx={{ maxWidth: { xs: '50%', sm: '150px' }, paddingRight: '2px' }}>
-                <img src={item} style={{ width: '100%', height: 'auto' }} />
-              </Box>
+              //   <Box key={index} sx={{ maxWidth: { xs: '50%', sm: '150px' }, paddingRight: '2px' }}>
+              //     <img src={item} style={{ width: '100%', height: 'auto' }} />
+              //   </Box>
+              <TyreCard key={index} image={item} name={tyreNames[index]} />
             );
           })}
         </Grid>

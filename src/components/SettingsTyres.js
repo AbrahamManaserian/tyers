@@ -365,7 +365,7 @@ export function OpenSettingsDrawer({ getText, setPrice, price }) {
           justifyContent: 'center',
           borderRadius: '50%',
           position: 'fixed',
-          top: '87vh',
+          bottom: '55px',
           right: '25px',
           backgroundColor: '#263238',
           height: '40px',

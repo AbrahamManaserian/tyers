@@ -49,7 +49,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '90vh',
+                      maxHeight: '85vh',
                     },
                   },
                 }}
@@ -79,7 +79,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '90vh',
+                      maxHeight: '85vh',
                     },
                   },
                 }}
@@ -109,7 +109,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '90vh',
+                      maxHeight: '85vh',
                     },
                   },
                 }}

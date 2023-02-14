@@ -177,7 +177,7 @@ export const textHomePage = {
   },
   allSeason: {
     en: 'All season',
-    ru: 'Всесезонная',
+    ru: 'Всесезонные',
     am: 'Ամբողջ սեզոնի',
   },
   search: {
@@ -189,6 +189,51 @@ export const textHomePage = {
     en: 'Вылет',
     ru: 'Вылет',
     am: 'Вылет',
+  },
+  from: {
+    en: 'from',
+    ru: 'от',
+    am: 'սկս',
+  },
+  to: {
+    en: 'to',
+    ru: 'до',
+    am: 'մին',
+  },
+  SUV: {
+    en: 'SUV',
+    ru: 'Внедорожник',
+    am: 'Ամենագնաց',
+  },
+  all: {
+    en: 'All',
+    ru: 'Все',
+    am: 'Ամբողջը',
+  },
+  apply: {
+    en: 'Apply',
+    ru: 'Показать',
+    am: 'Կիրառել',
+  },
+  reset: {
+    en: 'Reset',
+    ru: 'Сбросить',
+    am: 'Չեղարկել',
+  },
+  manufacturers: {
+    en: 'Manufacturers',
+    ru: 'Производители',
+    am: 'Արտադրողներ',
+  },
+  smallTruck: {
+    en: 'Small trucks and commercial (up to 3.5 tons)',
+    ru: 'Малые грузовики и коммерческий (до 3,5 тонн)',
+    am: 'Փոքր բեռնատարներ և կոմերցիոն (մինչև 3,5 տոննա)',
+  },
+  carType: {
+    en: 'Vehicle type',
+    ru: 'Тип автомобиля',
+    am: 'Տրանսպորտի տեսակը',
   },
   uniquePrice: {
     en: 'Price for one',

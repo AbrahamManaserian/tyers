@@ -49,13 +49,13 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '60vh',
+                      maxHeight: '90vh',
                     },
                   },
                 }}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem value="all">
+                  <em>{getText('all')} </em>
                 </MenuItem>
                 {widthPassenger.map((item, index) => {
                   return (
@@ -79,13 +79,13 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '60vh',
+                      maxHeight: '90vh',
                     },
                   },
                 }}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem value="all">
+                  <em>{getText('all')}</em>
                 </MenuItem>
                 {profilePassenger.map((item, index) => {
                   return (
@@ -109,13 +109,13 @@ export default function ChooseTyres({ inputs, setInputs }) {
                 MenuProps={{
                   PaperProps: {
                     style: {
-                      maxHeight: '60vh',
+                      maxHeight: '90vh',
                     },
                   },
                 }}
               >
-                <MenuItem value="">
-                  <em>None</em>
+                <MenuItem value="all">
+                  <em>{getText('all')}</em>
                 </MenuItem>
                 {diameterPassenger.map((item, index) => {
                   return (

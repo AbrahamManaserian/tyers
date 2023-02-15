@@ -23,7 +23,7 @@ import TyreCard from '../components/TyreCard';
 const arr = [Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9];
 const tyreNames = [
   'Nokian Tyres Hakka Van',
-  'Continental ContiPremiumContact 5',
+  'Continental ContiPremiumContact 5 Continental ContiPremiumContact 5 Continental ContiPremiumContact 5',
   'Continental Conti4x4Contact',
   'Goodyear EfficientGrip Performance 2',
   'Pirelli Cinturato P1 Verde',
@@ -166,10 +166,14 @@ export default function HomePage() {
         >
           {arr.map((item, index) => {
             return (
-              //   <Box key={index} sx={{ maxWidth: { xs: '50%', sm: '150px' }, paddingRight: '2px' }}>
-              //     <img src={item} style={{ width: '100%', height: 'auto' }} />
-              //   </Box>
-              <TyreCard key={index} image={item} name={tyreNames[index]} />
+              <TyreCard
+                getText={getText}
+                mode={context.darkMode}
+                season={index % 2 === 0}
+                key={index}
+                image={item}
+                name={tyreNames[index]}
+              />
             );
           })}
         </Grid>

@@ -225,6 +225,11 @@ export const textHomePage = {
     ru: 'Производители',
     am: 'Արտադրողներ',
   },
+  addCart: {
+    en: 'Add to Cart',
+    ru: 'Добавить в корзину',
+    am: 'Ավելացնել զամբյուղ',
+  },
   smallTruck: {
     en: 'Small trucks and commercial (up to 3.5 tons)',
     ru: 'Малые грузовики и коммерческий (до 3,5 тонн)',

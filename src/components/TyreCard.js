@@ -8,7 +8,7 @@ export default function ({ image, name, season, mode, getText }) {
         //   rgb(245, 245, 245)
         width: { xs: '48%', sm: '180px' },
         overflow: 'hidden',
-        height: '319px',
+        height: '321px',
         boxShadow: `${mode !== 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgb(245, 245, 245)'} 0 1px 3px`,
         // borderStyle: 'solid',
         // borderWidth: '1px',
@@ -19,20 +19,28 @@ export default function ({ image, name, season, mode, getText }) {
         },
         display: 'flex',
         flexDirection: 'column',
-        p: '3px',
+        p: '5px',
         margin: { xs: '5px 0 5px 0', sm: '5px 5px 5px 5px' },
 
         borderRadius: '10px',
       }}
     >
-      <Box sx={{ height: '172px', overflow: 'hidden' }}>
-        <img src={image} style={{ width: '100%', height: 'auto', borderRadius: '7px' }} />
+      <Box
+        sx={{
+          display: 'flex',
+          height: '172px',
+          overflow: 'hidden',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <img src={image} style={{ width: '100%', maxWidth: '172px', height: 'auto', borderRadius: '7px' }} />
       </Box>
       <Box
         sx={{
           height: '40px',
-          //   display: 'flex',
-          //   alignItems: 'flex-end',
+          display: 'flex',
+          alignItems: 'flex-end',
           marginTop: '5px',
           overflow: 'hidden',
           //   textOverflow: 'ellipsis',
@@ -40,7 +48,7 @@ export default function ({ image, name, season, mode, getText }) {
       >
         <Typography
           sx={{
-            fontSize: '15px',
+            fontSize: '14px',
             fontWeight: 700,
             overflow: 'hidden',
             display: '-webkit-box',
@@ -53,16 +61,31 @@ export default function ({ image, name, season, mode, getText }) {
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '5px', alignItems: 'center' }}>
-        <Typography sx={{ fontSize: '14px', paddingRight: '10px' }}>215/75R16 </Typography>
+        <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>215/75/R16 </Typography>
         {season ? (
           <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" />
         ) : (
           <AcUnitIcon color="primary" fontSize="13px" />
         )}
       </Box>
-      <Typography variant="h6" fontWeight={700} borderTop={1} sx={{ borderWidth: 0.1 }}>
-        28000d
-      </Typography>
+      <Box
+        sx={{
+          display: 'flex',
+          //   p: '2px',
+          marginTop: '5px',
+          alignItems: 'center',
+          borderTop: 1,
+          borderWidth: 0.1,
+          justifyContent: 'space-between',
+        }}
+      >
+        <Typography variant="h6" fontWeight={700}>
+          28000d
+        </Typography>
+        <Typography fontWeight={700} sx={{ fontSize: '10px', paddingRight: '5px', fontWeight: 400 }}>
+          I-12903394
+        </Typography>
+      </Box>
       <Button
         // onClick={() => setChooseTyre('tyre')}
         variant="contained"
@@ -70,7 +93,7 @@ export default function ({ image, name, season, mode, getText }) {
         size="small"
         sx={{
           borderRadius: '10px',
-          m: '0 2px 0 2px',
+          //   m: '0 2px 0 2px',
           textTransform: 'none',
           fontSize: { xs: '12px', sm: '13px' },
         }}

@@ -35,7 +35,7 @@ const tyreNames = [
 ];
 
 export default function HomePage() {
-  const [price, setPrice] = useState([1, 200]);
+  const [price, setPrice] = useState([1, 100]);
   const context = useContext(AppContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -55,7 +55,6 @@ export default function HomePage() {
     diameter: '',
     bolt: '',
   });
-
   const handleClickPassenger = (name) => {
     setChoosePassenger(name);
     navigate(name);

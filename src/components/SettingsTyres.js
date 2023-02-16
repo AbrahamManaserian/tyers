@@ -54,7 +54,7 @@ export function PriceSlider({ setPrice, price, getText }) {
         disableSwap
         color="success"
         min={1}
-        max={200}
+        max={100}
       />
     </Box>
   );
@@ -102,7 +102,6 @@ const manufacturers = [
 ];
 
 export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }) {
-  const [value2, setValue2] = useState([20, 37]);
   const [carType, setCarType] = useState({
     passenger: false,
     SUV: false,
@@ -170,7 +169,7 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
       <Typography
         // p="5px"
         variant="body2"
-        color="secondary"
+        color="primary"
         sx={{ textDecorationLine: 'underline', textUnderlineOffset: '5px' }}
       >
         {getText('settings')}
@@ -191,18 +190,23 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
         }}
       >
         <Grid item xs={12} paddingBottom={{ xs: '10px', sm: '15px' }}>
-          <Typography variant="settingsSmall">{getText('uniquePrice')}</Typography>
+          <Typography color="primary" variant="settingsSmall">
+            {getText('uniquePrice')}
+          </Typography>
         </Grid>
         <Grid item container xs={6} alignItems="center" justifyContent="center">
           <Typography fontSize="12px">{getText('from')} </Typography>
           <TextField
+            onKeyDown={(e) => {
+              e.stopPropagation();
+            }}
             sx={{
               marginX: '5px',
               width: '120px',
             }}
             size="small"
             // id="outlined-controlled"
-            value={price[0] * 1000}
+            value={price[0] * 1000 || ''}
             type="number"
             onChange={(event) => {
               setPrice([+event.target.value / 1000, price[1]]);
@@ -212,10 +216,13 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
         <Grid item container xs={6} alignItems="center" justifyContent="center">
           <Typography fontSize="12px">{getText('to')} </Typography>
           <TextField
+            onKeyDown={(e) => {
+              e.stopPropagation();
+            }}
             sx={{ marginX: '5px', width: '120px' }}
             size="small"
             // id="outlined-controlled"
-            value={price[1] * 1000}
+            value={price[1] * 1000 || ''}
             type="number"
             onChange={(event) => {
               setPrice([price[0], +event.target.value / 1000]);
@@ -233,7 +240,9 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
           <PriceSlider getText={getText} setPrice={setPrice} price={price} />
         </Grid>
         <Grid item xs={12} paddingBottom={{ xs: '10px', sm: '10px' }}>
-          <Typography variant="settingsSmall">{getText('carType')}</Typography>
+          <Typography color="primary" variant="settingsSmall">
+            {getText('carType')}
+          </Typography>
         </Grid>
         <Grid item xs={12} paddingBottom={{ xs: '10px', sm: '15px' }}>
           <FormControl>
@@ -266,7 +275,9 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
           </FormControl>
         </Grid>
         <Grid item xs={12} paddingBottom={{ xs: '10px', sm: '10px' }}>
-          <Typography variant="settingsSmall">{getText('manufacturers')}</Typography>
+          <Typography color="primary" variant="settingsSmall">
+            {getText('manufacturers')}
+          </Typography>
         </Grid>
         <Grid item xs={6} paddingBottom={{ xs: '10px', sm: '15px' }}>
           <FormControl>

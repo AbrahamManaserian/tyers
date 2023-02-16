@@ -88,7 +88,7 @@ export const getDesignTokens = (mode) => ({
                   borderWidth: 0.2,
                   textTransform: 'none',
                   color: '#546e7a',
-                  padding: '2px 2px 2px 2px',
+                  padding: '4px 2px 2px 4px',
 
                   '@media (min-width:600px)': {
                     fontSize: '14px',
@@ -96,7 +96,7 @@ export const getDesignTokens = (mode) => ({
                   },
                   minWidth: '80px',
                   borderRadius: '9px',
-                  fontSize: '10px',
+                  fontSize: '12px',
                   // '&:hover': {
                   //   background: '#eeeeee',
                   // },
@@ -177,6 +177,8 @@ export const getDesignTokens = (mode) => ({
                 style: {
                   fontSize: '10px',
                   fontWeight: 600,
+                  textDecorationLine: 'underline',
+                  textUnderlineOffset: '5px',
                   // color: '#ba68c8',
                 },
               },

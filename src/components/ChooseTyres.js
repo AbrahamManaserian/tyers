@@ -73,8 +73,8 @@ export default function ChooseTyres({ inputs, setInputs }) {
               <Select
                 labelId="demo-simple-select-standard-label"
                 id="demo-simple-select-standard"
-                value={inputs.profile}
-                onChange={(e) => handleChangeInputs(e, 'profile')}
+                value={inputs.height}
+                onChange={(e) => handleChangeInputs(e, 'height')}
                 label={getText('profile')}
                 MenuProps={{
                   PaperProps: {

@@ -156,7 +156,7 @@ export const textHomePage = {
     am: 'Լայնությունը',
   },
   profile: {
-    en: 'Profile',
+    en: 'Height',
     ru: 'Профиль',
     am: 'Պրոֆիլ',
   },

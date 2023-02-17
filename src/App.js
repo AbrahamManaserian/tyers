@@ -83,12 +83,12 @@ export const getDesignTokens = (mode) => ({
               {
                 props: { variant: 'customHome' },
                 style: {
-                  margin: '2px',
+                  margin: '3px',
                   borderStyle: 'solid',
                   borderWidth: 0.2,
                   textTransform: 'none',
                   color: '#546e7a',
-                  padding: '4px 2px 2px 4px',
+                  padding: '2px 6px 2px 6px',
 
                   '@media (min-width:600px)': {
                     fontSize: '14px',
@@ -144,19 +144,19 @@ export const getDesignTokens = (mode) => ({
               {
                 props: { variant: 'customHome' },
                 style: {
-                  margin: '2px',
+                  margin: '3px',
                   borderStyle: 'solid',
                   borderWidth: 0.2,
                   textTransform: 'none',
                   color: '#cfd8dc',
-                  padding: '2px 2px 2px 0',
+                  padding: '2px 6px 2px 6px',
                   borderRadius: '9px',
                   '@media (min-width:600px)': {
                     fontSize: '14px',
                     minWidth: '100px',
                   },
                   minWidth: '80px',
-                  fontSize: '10px',
+                  fontSize: '12px',
                   // '&:hover': {
                   //   background: '#616161',
                   // },

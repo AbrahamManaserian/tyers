@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
-export default function ({ image, name, season, mode, getText }) {
+export default function ({ name, season, mode, getText, price, diameter, height, width, imgUrl, id }) {
   return (
     <Box
       sx={{
@@ -34,7 +34,7 @@ export default function ({ image, name, season, mode, getText }) {
           alignItems: 'center',
         }}
       >
-        <img src={image} style={{ width: '100%', maxWidth: '172px', height: 'auto', borderRadius: '7px' }} />
+        <img src={imgUrl} style={{ width: '100%', maxWidth: '172px', height: 'auto', borderRadius: '7px' }} />
       </Box>
       <Box
         sx={{
@@ -61,8 +61,10 @@ export default function ({ image, name, season, mode, getText }) {
         </Typography>
       </Box>
       <Box sx={{ display: 'flex', marginTop: '5px', alignItems: 'center' }}>
-        <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>215/75/R16 </Typography>
-        {season ? (
+        <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>
+         {width}/{height}/R{diameter}
+        </Typography>
+        {season === 'summer' ? (
           <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" />
         ) : (
           <AcUnitIcon color="primary" fontSize="13px" />
@@ -80,10 +82,10 @@ export default function ({ image, name, season, mode, getText }) {
         }}
       >
         <Typography variant="h6" fontWeight={700}>
-          28000d
+          {price}
         </Typography>
         <Typography fontWeight={700} sx={{ fontSize: '10px', paddingRight: '5px', fontWeight: 400 }}>
-          I-12903394
+          {id && 'I-12903394'}
         </Typography>
       </Box>
       <Button

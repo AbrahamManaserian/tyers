@@ -62,13 +62,10 @@ export default function ({ name, season, mode, getText, price, diameter, height,
       </Box>
       <Box sx={{ display: 'flex', marginTop: '5px', alignItems: 'center' }}>
         <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>
-         {width}/{height}/R{diameter}
+          {width}/{height}/R{diameter}
         </Typography>
-        {season === 'summer' ? (
-          <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" />
-        ) : (
-          <AcUnitIcon color="primary" fontSize="13px" />
-        )}
+        {season === 'summer' ? <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" /> : null}
+        {season === 'winter' ? <AcUnitIcon color="primary" fontSize="13px" /> : null}
       </Box>
       <Box
         sx={{

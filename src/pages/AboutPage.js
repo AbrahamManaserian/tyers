@@ -84,9 +84,44 @@ const data = {
 export default function AboutPage() {
   async function asd() {
     const docRef = collection(db, 'tyres');
+
+    // for (let i = 0; i < 200; i++) {
+    //   await addDoc(docRef, {
+    //     name: 'Abraham',
+    //     width: '275',
+    //     height: '35',
+    //     diameter: '28',
+    //     manufacturer: 'manufacturers',
+    //     creationDate: '',
+    //     updatedDate: '',
+    //     seller: '',
+    //     price: 34000 + i,
+    //     quantity: i + 4,
+    //     season: i % 2 ? 'winter' : 'summer',
+    //     smallImage:
+    //       'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+    //   });
+    // }
+
+    const data = await getDocs(
+      query(
+        collection(db, 'tyres'),
+        where('diameter', '==', '28')
+        // orderBy('price', 'desc'),
+        // limit(20)
+      )
+    );
+    let num = 0;
+    data.forEach((item) => {
+      ++num;
+      updateDoc(doc(db, 'tyres', item.id), {
+        diameter: num % 2 ? '19' : '18',
+      });
+      // console.log(item.data().season);
+    });
   }
 
-  asd();
+  // asd();
   return (
     <Grid item container xs={12}>
       About page
@@ -94,21 +129,14 @@ export default function AboutPage() {
   );
 }
 
-
-// for (let i = 0; i < 5; i++) {
-    //   await addDoc(docRef, {
-    //     name: tyreNames[i],
-    //     width: '275',
-    //     height: '35',
-    //     diameter: '21',
-    //     manufacturer: manufacturers[i + 15],
-    //     creationDate: '',
-    //     updatedDate: '',
-    //     seller: '',
-    //     price: 34000 + i,
-    //     quantity: i + 4,
-    //   });
-    // }
+// const data = await getDocs(
+//   query(
+//     collection(db, 'tyres'),
+//     ...restQueries,
+//     // orderBy('price', 'desc'),
+//     limit(20)
+//   )
+// );
 
     // const asd = await getDocs(
     //   query(collection(db, 'tyres', '17', '17'), where('width', '==', '265'), orderBy('price'), limit(25))

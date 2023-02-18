@@ -1,4 +1,4 @@
-import { Box, Button, Grid, Typography } from '@mui/material';
+import { Box, Button, Grid, LinearProgress, Pagination, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
@@ -7,17 +7,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import ChooseTyres from '../components/ChooseTyres';
 import ChooseWheels from '../components/ChooseWheels';
 import Settings, { OpenSettingsDrawer } from '../components/SettingsTyres';
-import { SettingsIcon } from '../SVGIcons';
-import Image0 from '../images/tyres/0.jpeg';
-import Image1 from '../images/tyres/1.webp';
-import Image2 from '../images/tyres/2.jpeg';
-import Image3 from '../images/tyres/3.jpeg';
-import Image4 from '../images/tyres/4.webp';
-import Image5 from '../images/tyres/5.jpeg';
-import Image6 from '../images/tyres/6.webp';
-import Image7 from '../images/tyres/7.webp';
-import Image8 from '../images/tyres/8.webp';
-import Image9 from '../images/tyres/9.webp';
 
 import TyreCard from '../components/TyreCard';
 import {
@@ -28,13 +17,14 @@ import {
   limit,
   orderBy,
   query,
+  startAfter,
+  startAt,
   updateDoc,
   where,
 } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
-const arr = [Image0, Image1, Image2, Image3, Image4, Image5, Image6, Image7, Image8, Image9];
 const tyreNames = [
   'Nokian Tyres Hakka Van',
   'Continental ContiPremiumContact 5 Continental ContiPremiumContact 5 Continental ContiPremiumContact 5',
@@ -49,9 +39,12 @@ const tyreNames = [
 ];
 
 export default function HomePage() {
+  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const context = useContext(AppContext);
+  const [page, setPage] = useState(1);
+  //   console.log(page);
   const [tyres, setTyres] = useState([]);
   const [price, setPrice] = useState([1, 100]);
   const [chooseTyre, setChooseTyre] = useState('tyre');
@@ -74,6 +67,7 @@ export default function HomePage() {
   useEffect(() => {
     let url = new URL(`http://localhost:3000/${location.search}`);
     if (url.search) {
+      setLoading(true);
       setInputs({
         width: url.searchParams.get('width'),
         height: url.searchParams.get('height'),
@@ -82,6 +76,7 @@ export default function HomePage() {
         winter: url.searchParams.get('season').includes('winter'),
         allSeason: url.searchParams.get('season')?.includes('allseason'),
       });
+      setPrice([+url.searchParams.get('minprice') || 1, +url.searchParams.get('maxprice') || 100]);
       const parameters = ['width', 'height', 'diameter', 'minprice', 'maxprice'];
       const queries = [];
       const queriesSeason = [];
@@ -102,16 +97,32 @@ export default function HomePage() {
       });
       if (queriesSeason.length) restQueries.push(where('season', 'in', queriesSeason));
       async function getData() {
-        const data = await getDocs(
+        const firsData = await getDocs(
           query(
             collection(db, 'tyres'),
-            ...restQueries
+            ...restQueries,
             // orderBy('price', 'desc'),
-            // limit(6)
+            limit(20)
           )
         );
+        const lastVisible = firsData.docs[firsData.docs.length - 1];
+        // console.log(data.docs.length);
         setTyres([]);
-        data.forEach((item) => {
+        setLoading(false);
+        firsData.forEach((item) => {
+          setTyres((prev) => [...prev, item.data()]);
+        });
+        setPage(1);
+        const nextData = await getDocs(
+          query(
+            collection(db, 'tyres'),
+            ...restQueries,
+            // orderBy('price', 'desc'),
+            startAfter(lastVisible)
+            // limit(100)
+          )
+        );
+        nextData.forEach((item) => {
           setTyres((prev) => [...prev, item.data()]);
         });
       }
@@ -126,6 +137,7 @@ export default function HomePage() {
         allSeason: false,
       });
       setTyres([]);
+      setPrice([1, 100]);
     }
   }, [location]);
   const handleClickPassenger = (name) => {
@@ -154,7 +166,10 @@ export default function HomePage() {
       }&minprice=${price[0] === 1 ? '' : price[0]}&maxprice=${price[1] === 100 ? '' : price[1]}`
     );
   };
-
+  const handleChangePage = (event, value) => {
+    setPage(value);
+  };
+  console.log(tyres.length);
   return (
     <Grid padding="8px" item xs={12} container justifyContent="flex-start" alignItems="flex-start">
       <Grid item xs={12} sm={12} md container alignItems="flex-start">
@@ -240,6 +255,10 @@ export default function HomePage() {
           >
             {getText('search')}
           </Button>
+
+          <Box sx={{ display: loading ? 'block' : 'hidden', width: '100%', paddingTop: '5px' }}>
+            <LinearProgress />
+          </Box>
         </Grid>
         <Grid
           p={{ xs: '8px 5px 0 5px', sm: '12px 5px 0 5px' }}
@@ -251,22 +270,32 @@ export default function HomePage() {
         >
           {tyres.map((item, index) => {
             // console.log(item);
-            return (
-              <TyreCard
-                getText={getText}
-                mode={context.darkMode}
-                season={item.season}
-                key={index}
-                imgUrl={item.smallImage}
-                name={item.name}
-                width={item.width}
-                height={item.height}
-                diameter={item.diameter}
-                price={item.price}
-              />
-            );
+            if (index >= (page - 1) * 40 && index < page * 40) {
+              return (
+                // <div onClick={() => console.log(index)} >
+                <TyreCard
+                  key={index}
+                  getText={getText}
+                  mode={context.darkMode}
+                  season={item.season}
+                  imgUrl={item.smallImage}
+                  name={item.name}
+                  width={item.width}
+                  height={item.height}
+                  diameter={item.diameter}
+                  price={item.price}
+                />
+                // </div>
+              );
+            }
           })}
+          <Grid item xs={12} container justifyContent="center">
+            {tyres.length ? (
+              <Pagination count={Math.ceil(tyres.length / 40)} page={page} onChange={handleChangePage} />
+            ) : null}
+          </Grid>
         </Grid>
+
         <OpenSettingsDrawer getText={getText} setPrice={setPrice} price={price} />
       </Grid>
 

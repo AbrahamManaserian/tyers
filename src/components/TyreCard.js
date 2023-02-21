@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from '@mui/material';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
+import { Link } from 'react-router-dom';
 export default function ({ name, season, mode, getText, price, diameter, height, width, imgUrl, id }) {
   return (
     <Box
@@ -25,66 +26,72 @@ export default function ({ name, season, mode, getText, price, diameter, height,
         borderRadius: '10px',
       }}
     >
-      <Box
-        sx={{
-          display: 'flex',
-          height: '172px',
-          overflow: 'hidden',
-          justifyContent: 'center',
-          alignItems: 'center',
-        }}
-      >
-        <img src={imgUrl} style={{ width: '100%', maxWidth: '172px', height: 'auto', borderRadius: '7px' }} />
-      </Box>
-      <Box
-        sx={{
-          height: '40px',
-          display: 'flex',
-          alignItems: 'flex-end',
-          marginTop: '5px',
-          overflow: 'hidden',
-          //   textOverflow: 'ellipsis',
-        }}
-      >
-        <Typography
+      {' '}
+      <Link to={`/tyres/${id}`} className="cardlink">
+        <Box
           sx={{
-            fontSize: '14px',
-            fontWeight: 700,
+            display: 'flex',
+            height: '172px',
             overflow: 'hidden',
-            display: '-webkit-box',
-            WebkitLineClamp: 2,
-            // height: '50px',
-            WebkitBoxOrient: 'vertical',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}
         >
-          {name}
-        </Typography>
-      </Box>
-      <Box sx={{ display: 'flex', marginTop: '5px', alignItems: 'center' }}>
-        <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>
-          {width}/{height}/R{diameter}
-        </Typography>
-        {season === 'summer' ? <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" /> : null}
-        {season === 'winter' ? <AcUnitIcon color="primary" fontSize="13px" /> : null}
-      </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          //   p: '2px',
-          marginTop: '5px',
-          alignItems: 'center',
-          borderTop: 1,
-          borderWidth: 0.1,
-          justifyContent: 'space-between',
-        }}
-      >
-        <Typography variant="h6" fontWeight={700}>
-          {price}
-        </Typography>
-        <Typography fontWeight={700} sx={{ fontSize: '10px', paddingRight: '5px', fontWeight: 400 }}>
-          {id && 'I-12903394'}
-        </Typography>
-      </Box>
+          <img
+            src={imgUrl}
+            style={{ width: '100%', maxWidth: '172px', height: 'auto', borderRadius: '7px' }}
+          />
+        </Box>
+        <Box
+          sx={{
+            height: '40px',
+            display: 'flex',
+            alignItems: 'flex-end',
+            marginTop: '5px',
+            overflow: 'hidden',
+            //   textOverflow: 'ellipsis',
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: '14px',
+              fontWeight: 700,
+              overflow: 'hidden',
+              display: '-webkit-box',
+              WebkitLineClamp: 2,
+              // height: '50px',
+              WebkitBoxOrient: 'vertical',
+            }}
+          >
+            {name}
+          </Typography>
+        </Box>
+        <Box sx={{ display: 'flex', marginTop: '5px', alignItems: 'center' }}>
+          <Typography sx={{ fontSize: '13px', paddingRight: '10px' }}>
+            {width}/{height}/R{diameter}
+          </Typography>
+          {season === 'summer' ? <LightModeOutlinedIcon sx={{ color: '#fbc02d' }} fontSize="small" /> : null}
+          {season === 'winter' ? <AcUnitIcon color="primary" fontSize="13px" /> : null}
+        </Box>
+        <Box
+          sx={{
+            display: 'flex',
+            //   p: '2px',
+            marginTop: '5px',
+            alignItems: 'center',
+            borderTop: 1,
+            borderWidth: 0.1,
+            justifyContent: 'space-between',
+          }}
+        >
+          <Typography variant="h6" fontWeight={700}>
+            {price}
+          </Typography>
+          <Typography fontWeight={700} sx={{ fontSize: '10px', paddingRight: '5px', fontWeight: 400 }}>
+            {id}
+          </Typography>
+        </Box>
+      </Link>
       <Button
         // onClick={() => setChooseTyre('tyre')}
         variant="contained"

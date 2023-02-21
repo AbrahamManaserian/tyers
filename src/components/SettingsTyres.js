@@ -101,52 +101,61 @@ const manufacturers = [
   'Tracmax',
 ];
 
-export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }) {
-  const [carType, setCarType] = useState({
-    passenger: false,
-    SUV: false,
-    smallTruck: false,
-  });
-  const [manufacturersState, setManufacturersState] = useState({
-    MICHELIN: false,
-    'Nokian Tyres': false,
-    Continental: false,
-    Yokohama: false,
-    Goodyear: false,
-    Pirelli: false,
-    Bridgestone: false,
-    Hankook: false,
-    Gislaved: false,
-    Marshal: false,
-    Matador: false,
-    Nexen: false,
-    'GT Radial': false,
-    HiFly: false,
-    Kama: false,
-    Kormoran: false,
-    Triangle: false,
-    Viatti: false,
-    Altenzo: false,
-    BFGoodrich: false,
-    Cachland: false,
-    Compasal: false,
-    Cordiant: false,
-    'Dunlop JP': false,
-    Goodride: false,
-    Maxxis: false,
-    'Mickey Thompson': false,
-    Nitto: false,
-    Onyx: false,
-    Rapid: false,
-    Roadcruza: false,
-    Sailun: false,
-    Sunfull: false,
-    Sunny: false,
-    Tigar: false,
-    Toyo: false,
-    Vredestein: false,
-    Tracmax: false,
-  });
+export default function SettingsTyres({
+  getText,
+  setPrice,
+  price,
+  toggleDrawer,
+  setCarType,
+  carType,
+  manufacturersState,
+  setManufacturersState,
+}) {
+  // const [carType, setCarType] = useState({
+  //   passenger: false,
+  //   SUV: false,
+  //   smallTruck: false,
+  // });
+  // const [manufacturersState, setManufacturersState] = useState({
+  //   MICHELIN: false,
+  //   'Nokian Tyres': false,
+  //   Continental: false,
+  //   Yokohama: false,
+  //   Goodyear: false,
+  //   Pirelli: false,
+  //   Bridgestone: false,
+  //   Hankook: false,
+  //   Gislaved: false,
+  //   Marshal: false,
+  //   Matador: false,
+  //   Nexen: false,
+  //   'GT Radial': false,
+  //   HiFly: false,
+  //   Kama: false,
+  //   Kormoran: false,
+  //   Triangle: false,
+  //   Viatti: false,
+  //   Altenzo: false,
+  //   BFGoodrich: false,
+  //   Cachland: false,
+  //   Compasal: false,
+  //   Cordiant: false,
+  //   'Dunlop JP': false,
+  //   Goodride: false,
+  //   Maxxis: false,
+  //   'Mickey Thompson': false,
+  //   Nitto: false,
+  //   Onyx: false,
+  //   Rapid: false,
+  //   Roadcruza: false,
+  //   Sailun: false,
+  //   Sunfull: false,
+  //   Sunny: false,
+  //   Tigar: false,
+  //   Toyo: false,
+  //   Vredestein: false,
+  //   Tracmax: false,
+  // });
   const handleChange = (event) => {
     if (event.target.value) setCarType({ ...carType, [event.target.value]: !carType[event.target.value] });
   };
@@ -358,7 +367,15 @@ export default function SettingsTyres({ getText, setPrice, price, toggleDrawer }
   );
 }
 
-export function OpenSettingsDrawer({ getText, setPrice, price }) {
+export function OpenSettingsDrawer({
+  getText,
+  setPrice,
+  price,
+  setCarType,
+  carType,
+  manufacturersState,
+  setManufacturersState,
+}) {
   const [openDrawer, setOPenDrawer] = useState(false);
   const toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -396,7 +413,16 @@ export function OpenSettingsDrawer({ getText, setPrice, price }) {
               close
             </Button>
           </Box>
-          <SettingsTyres toggleDrawer={toggleDrawer} getText={getText} setPrice={setPrice} price={price} />
+          <SettingsTyres
+            manufacturersState={manufacturersState}
+            setManufacturersState={setManufacturersState}
+            setCarType={setCarType}
+            carType={carType}
+            toggleDrawer={toggleDrawer}
+            getText={getText}
+            setPrice={setPrice}
+            price={price}
+          />
         </Box>
       </Drawer>
     </>

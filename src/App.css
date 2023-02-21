@@ -15,6 +15,11 @@
 .linko:hover {
 background-color: rgb(245, 245, 245);
 }
+.cardlink {
+  /* display: flex; */
+  text-decoration: none;
+  color: inherit;
+}
 /* .App {
   text-align: center;
 }

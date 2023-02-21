@@ -1,10 +1,12 @@
 import { Grid } from '@mui/material';
 import {
   addDoc,
+  arrayUnion,
   collection,
   doc,
   getDoc,
   getDocs,
+  increment,
   limit,
   orderBy,
   query,
@@ -82,46 +84,162 @@ const data = {
   price: 28000,
 };
 export default function AboutPage() {
-  async function asd() {
-    const docRef = collection(db, 'tyres');
+  async function asd(diameter, name, width, height, price) {
+    const docRefDiameter = collection(db, 'tyres', diameter, diameter);
 
-    // for (let i = 0; i < 200; i++) {
-    //   await addDoc(docRef, {
-    //     name: 'Abraham',
-    //     width: '275',
-    //     height: '35',
-    //     diameter: '28',
-    //     manufacturer: 'manufacturers',
-    //     creationDate: '',
-    //     updatedDate: '',
-    //     seller: '',
-    //     price: 34000 + i,
-    //     quantity: i + 4,
-    //     season: i % 2 ? 'winter' : 'summer',
-    //     smallImage:
-    //       'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
-    //   });
-    // }
+    const docRefAll = collection(db, 'tyres');
+    addDoc(docRefAll, {
+      name: 'Abraham',
+      width: width,
+      height: height,
+      diameter: diameter,
+      manufacturer: 'manufacturers',
+      creationDate: '',
+      updatedDate: '',
+      seller: '',
+      price: 34000,
+      quantity: 4,
+      season: 'summer',
+      id: name,
+      smallImage:
+        'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+    });
 
-    const data = await getDocs(
-      query(
-        collection(db, 'tyres'),
-        where('diameter', '==', '28')
-        // orderBy('price', 'desc'),
-        // limit(20)
-      )
-    );
-    let num = 0;
-    data.forEach((item) => {
-      ++num;
-      updateDoc(doc(db, 'tyres', item.id), {
-        diameter: num % 2 ? '19' : '18',
-      });
-      // console.log(item.data().season);
+    async function addItemByParameter(parameter, document) {
+      const docRef = doc(db, 'tyres', parameter);
+      setDoc(docRef, document, { merge: true });
+    }
+    addItemByParameter(height, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(width, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(diameter, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(`${diameter}&${width}`, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(`${diameter}&${width}&${height}`, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(`${diameter}&${height}`, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
+    });
+    addItemByParameter(`${width}&${height}`, {
+      [name]: {
+        name: 'Abraham',
+        width: width,
+        height: height,
+        diameter: diameter,
+        manufacturer: 'manufacturers',
+        creationDate: '',
+        updatedDate: '',
+        seller: '',
+        price: price,
+        quantity: 4,
+        id: name,
+        season: 'summer',
+        smallImage:
+          'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
+      },
     });
   }
-
-  // asd();
+  for (let i = 0; i < 200; i++) {
+    // asd(`${12 + i}`, `I-000089${i}`, `245`, `45`, 21000 + i * 100);
+  }
+  // asd('17', 'I-0000051', '245', '35');
   return (
     <Grid item container xs={12}>
       About page

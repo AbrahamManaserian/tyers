@@ -7,7 +7,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
-import TyresPage from './pages/TyresPage';
+import TyrePage from './pages/TyrePage';
 import WheelsPage from './pages/WheelsPage';
 import CustomersPage from './pages/CustomersPage';
 import SalesPage from './pages/SalesPage';
@@ -41,7 +41,13 @@ const router = createBrowserRouter([
       },
       {
         path: '/tyres',
-        element: <TyresPage />,
+        element: <TyrePage />,
+        children: [
+          {
+            path: '/tyres/:item',
+            element: <div>Abraham</div>,
+          },
+        ],
       },
       {
         path: '/wheels',

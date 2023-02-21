@@ -1,6 +1,6 @@
 import { Box, Button, Grid, LinearProgress, Pagination, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
 import { textHomePage } from '../text';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +13,7 @@ import {
   collection,
   deleteField,
   doc,
+  getDoc,
   getDocs,
   limit,
   orderBy,
@@ -24,6 +25,7 @@ import {
 } from 'firebase/firestore';
 import { db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
+import Image1 from '../images/tyres/0.jpeg';
 
 const tyreNames = [
   'Nokian Tyres Hakka Van',
@@ -39,15 +41,59 @@ const tyreNames = [
 ];
 
 export default function HomePage() {
-  const [loading, setLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  //   console.log(location);
+
   const context = useContext(AppContext);
-  const [page, setPage] = useState(1);
-  //   console.log(page);
+  let url = new URL(`http://localhost:3000/${location.search}`);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(+url.searchParams.get('page') || 1);
+
   const [tyres, setTyres] = useState([]);
+  const [filteredTyres, setFilteredTyres] = useState([]);
   const [price, setPrice] = useState([1, 100]);
   const [chooseTyre, setChooseTyre] = useState('tyre');
+  const [manufacturersState, setManufacturersState] = useState({
+    MICHELIN: false,
+    'Nokian Tyres': false,
+    Continental: false,
+    Yokohama: false,
+    Goodyear: false,
+    Pirelli: false,
+    Bridgestone: false,
+    Hankook: false,
+    Gislaved: false,
+    Marshal: false,
+    Matador: false,
+    Nexen: false,
+    'GT Radial': false,
+    HiFly: false,
+    Kama: false,
+    Kormoran: false,
+    Triangle: false,
+    Viatti: false,
+    Altenzo: false,
+    BFGoodrich: false,
+    Cachland: false,
+    Compasal: false,
+    Cordiant: false,
+    'Dunlop JP': false,
+    Goodride: false,
+    Maxxis: false,
+    'Mickey Thompson': false,
+    Nitto: false,
+    Onyx: false,
+    Rapid: false,
+    Roadcruza: false,
+    Sailun: false,
+    Sunfull: false,
+    Sunny: false,
+    Tigar: false,
+    Toyo: false,
+    Vredestein: false,
+    Tracmax: false,
+  });
   const [choosePassenger, setChoosePassenger] = useState(location.pathname === '/' ? '/' : 'truck-tyres');
   const [inputs, setInputs] = useState({
     width: '',
@@ -56,6 +102,9 @@ export default function HomePage() {
     summer: false,
     winter: false,
     allSeason: false,
+    passenger: false,
+    SUV: false,
+    smallTruck: false,
   });
   const [inputsWheels, setInputsWheels] = useState({
     width: '',
@@ -63,70 +112,87 @@ export default function HomePage() {
     diameter: '',
     bolt: '',
   });
-
   useEffect(() => {
-    let url = new URL(`http://localhost:3000/${location.search}`);
+    // console.log('asd');
+    setPage(+url.searchParams.get('page') || 1);
+  }, [url.searchParams.get('page')]);
+  useEffect(() => {
+    if (url.search) {
+      setInputs({
+        width: url.searchParams.get('width'),
+        height: url.searchParams.get('height'),
+        diameter: url.searchParams.get('diameter'),
+        passenger: url.searchParams.get('passenger') === 'true' ? true : false,
+        SUV: url.searchParams.get('suv') === 'true' ? true : false,
+        smallTruck: url.searchParams.get('smalltruck') === 'true' ? true : false,
+        summer: url.searchParams.get('season').includes('summer'),
+        winter: url.searchParams.get('season').includes('winter'),
+        allSeason: url.searchParams.get('season')?.includes('allseason'),
+      });
+      const filteredArr = tyres.filter((item, index) => {
+        if (
+          (url.searchParams.get('season') || 'summerwinterallseason').includes(item.season) &&
+          item.price > +url.searchParams.get('minprice') * 1000 &&
+          item.price < (+url.searchParams.get('maxprice') || 100) * 1000
+        ) {
+          return item;
+        }
+      });
+      setFilteredTyres(filteredArr.sort((a, b) => a.price - b.price));
+
+      // if (!tyres.length) setFilteredTyres([]);
+    } else {
+      setFilteredTyres([]);
+    }
+  }, [
+    url.searchParams.get('season'),
+    url.searchParams.get('minprice'),
+    url.searchParams.get('maxprice'),
+    url.searchParams.get('passenger'),
+    url.searchParams.get('suv'),
+    url.searchParams.get('smalltruck'),
+    tyres,
+  ]);
+  useEffect(() => {
     if (url.search) {
       setLoading(true);
       setInputs({
         width: url.searchParams.get('width'),
         height: url.searchParams.get('height'),
         diameter: url.searchParams.get('diameter'),
+        passenger: url.searchParams.get('passenger') === 'true' ? true : false,
+        SUV: url.searchParams.get('suv') === 'true' ? true : false,
+        smallTruck: url.searchParams.get('smalltruck') === 'true' ? true : false,
         summer: url.searchParams.get('season').includes('summer'),
         winter: url.searchParams.get('season').includes('winter'),
         allSeason: url.searchParams.get('season')?.includes('allseason'),
       });
       setPrice([+url.searchParams.get('minprice') || 1, +url.searchParams.get('maxprice') || 100]);
-      const parameters = ['width', 'height', 'diameter', 'minprice', 'maxprice'];
-      const queries = [];
-      const queriesSeason = [];
-      parameters.forEach((item) => {
-        if (url.searchParams.get(item)) queries.push(item);
-      });
-      ['summer', 'winter', 'allseason'].forEach((item) => {
-        if (url.searchParams.get('season').includes(item)) queriesSeason.push(item);
-      });
-      const restQueries = queries.map((item) => {
-        if (item === 'minprice') {
-          return where('price', '>', +url.searchParams.get(item) * 1000);
-        } else if (item === 'maxprice') {
-          return where('price', '<', +url.searchParams.get(item) * 1000);
-        } else {
-          return where(item, '==', url.searchParams.get(item));
+      let refStr = '';
+      ['diameter', 'width', 'height'].forEach((item, index) => {
+        if (url.searchParams.get(item)) {
+          if (!refStr) {
+            refStr += url.searchParams.get(item);
+          } else {
+            refStr += `&${url.searchParams.get(item)}`;
+          }
         }
       });
-      if (queriesSeason.length) restQueries.push(where('season', 'in', queriesSeason));
-      async function getData() {
-        const firsData = await getDocs(
-          query(
-            collection(db, 'tyres'),
-            ...restQueries,
-            // orderBy('price', 'desc'),
-            limit(20)
-          )
-        );
-        const lastVisible = firsData.docs[firsData.docs.length - 1];
-        // console.log(data.docs.length);
-        setTyres([]);
-        setLoading(false);
-        firsData.forEach((item) => {
-          setTyres((prev) => [...prev, item.data()]);
-        });
-        setPage(1);
-        const nextData = await getDocs(
-          query(
-            collection(db, 'tyres'),
-            ...restQueries,
-            // orderBy('price', 'desc'),
-            startAfter(lastVisible)
-            // limit(100)
-          )
-        );
-        nextData.forEach((item) => {
-          setTyres((prev) => [...prev, item.data()]);
-        });
-      }
-      getData();
+      const docRef = doc(db, 'tyres', refStr || '17');
+      getDoc(docRef).then((res) => {
+        // console.log(res.data());
+        if (res.exists()) {
+          const arr = [];
+          Object.keys(res.data()).forEach((key, index) => {
+            arr.push(res.data()[key]);
+          });
+          setTyres(arr);
+          setLoading(false);
+        } else {
+          setTyres([]);
+          setLoading(false);
+        }
+      });
     } else {
       setInputs({
         width: '',
@@ -135,11 +201,15 @@ export default function HomePage() {
         summer: false,
         winter: false,
         allSeason: false,
+        passenger: false,
+        SUV: false,
+        smallTruck: false,
       });
       setTyres([]);
       setPrice([1, 100]);
     }
-  }, [location]);
+  }, [url.searchParams.get('width'), url.searchParams.get('height'), url.searchParams.get('diameter')]);
+
   const handleClickPassenger = (name) => {
     setChoosePassenger(name);
     navigate(name);
@@ -163,13 +233,19 @@ export default function HomePage() {
         (inputs.summer ? 'summer' : '') +
         (inputs.winter ? 'winter' : '') +
         (inputs.allSeason ? 'allseason' : '')
-      }&minprice=${price[0] === 1 ? '' : price[0]}&maxprice=${price[1] === 100 ? '' : price[1]}`
+      }&minprice=${price[0] === 1 ? '' : price[0]}&maxprice=${price[1] === 100 ? '' : price[1]}&passenger=${
+        inputs.passenger
+      }&suv=${inputs.SUV}&smalltruck=${inputs.smallTruck}`
     );
   };
   const handleChangePage = (event, value) => {
     setPage(value);
+    url.searchParams.set('page', value);
+    //   console.log();
+    navigate(`/${url.search}`);
   };
-  console.log(tyres.length);
+  console.log(tyres.length, filteredTyres.length);
+  // console.log(inputs);
   return (
     <Grid padding="8px" item xs={12} container justifyContent="flex-start" alignItems="flex-start">
       <Grid item xs={12} sm={12} md container alignItems="flex-start">
@@ -263,19 +339,21 @@ export default function HomePage() {
         <Grid
           p={{ xs: '8px 5px 0 5px', sm: '12px 5px 0 5px' }}
           container
-          justifyContent="space-between"
+          justifyContent="center"
           alignItems="flex-end"
           item
           xs={12}
         >
-          {tyres.map((item, index) => {
+          {filteredTyres.map((item, index) => {
             // console.log(item);
             if (index >= (page - 1) * 40 && index < page * 40) {
               return (
                 // <div onClick={() => console.log(index)} >
+                // <Link to="/asd" key={index} className="cardlink">
                 <TyreCard
                   key={index}
                   getText={getText}
+                  id={item.id}
                   mode={context.darkMode}
                   season={item.season}
                   imgUrl={item.smallImage}
@@ -285,18 +363,31 @@ export default function HomePage() {
                   diameter={item.diameter}
                   price={item.price}
                 />
+                // </Link>
                 // </div>
               );
             }
           })}
           <Grid item xs={12} container justifyContent="center">
-            {tyres.length ? (
-              <Pagination count={Math.ceil(tyres.length / 40)} page={page} onChange={handleChangePage} />
+            {filteredTyres.length ? (
+              <Pagination
+                count={Math.ceil(filteredTyres.length / 40)}
+                page={page}
+                onChange={handleChangePage}
+              />
             ) : null}
           </Grid>
         </Grid>
 
-        <OpenSettingsDrawer getText={getText} setPrice={setPrice} price={price} />
+        <OpenSettingsDrawer
+          manufacturersState={manufacturersState}
+          setManufacturersState={setManufacturersState}
+          setCarType={setInputs}
+          carType={inputs}
+          getText={getText}
+          setPrice={setPrice}
+          price={price}
+        />
       </Grid>
 
       <Grid
@@ -308,7 +399,15 @@ export default function HomePage() {
         container
         justifyContent="center"
       >
-        <Settings getText={getText} setPrice={setPrice} price={price} />
+        <Settings
+          getText={getText}
+          setPrice={setPrice}
+          price={price}
+          manufacturersState={manufacturersState}
+          setManufacturersState={setManufacturersState}
+          setCarType={setInputs}
+          carType={inputs}
+        />
       </Grid>
     </Grid>
   );

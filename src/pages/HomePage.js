@@ -337,9 +337,9 @@ export default function HomePage() {
           </Box>
         </Grid>
         <Grid
-          p={{ xs: '8px 5px 0 5px', sm: '12px 5px 0 5px' }}
+          m={{ xs: '8px 0 0 0', sm: '12px 5px 0 5px' }}
           container
-          justifyContent="center"
+          justifyContent={{ xs: 'space-between', sm: 'center' }}
           alignItems="flex-end"
           item
           xs={12}

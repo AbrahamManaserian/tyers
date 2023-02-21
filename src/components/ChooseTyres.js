@@ -38,7 +38,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
       <Grid item xs container direction="column">
         <Grid item xs container>
           <Box minWidth={{ xs: '100%', sm: '100%', md: 140 }} p="5px">
-            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="medium">
               <InputLabel id="demo-simple-select-standard-label">{getText('width')}</InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
@@ -68,7 +68,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
             </FormControl>
           </Box>
           <Box minWidth={{ xs: '100%', sm: '100%', md: 120 }} p="5px">
-            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="medium">
               <InputLabel id="demo-simple-select-standard-label">{getText('profile')}</InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"
@@ -98,7 +98,7 @@ export default function ChooseTyres({ inputs, setInputs }) {
             </FormControl>
           </Box>
           <Box minWidth={{ xs: '100%', sm: '100%', md: 120 }} p="5px">
-            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="small">
+            <FormControl sx={{ minWidth: { xs: '100%', sm: '100%', md: 140 } }} size="medium">
               <InputLabel id="demo-simple-select-standard-label">{getText('diameter')}</InputLabel>
               <Select
                 labelId="demo-simple-select-standard-label"

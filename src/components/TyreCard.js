@@ -7,7 +7,7 @@ export default function ({ name, season, mode, getText, price, diameter, height,
     <Box
       sx={{
         //   rgb(245, 245, 245)
-        width: { xs: '48%', sm: '180px' },
+        width: { xs: '46%', sm: '180px' },
         overflow: 'hidden',
         height: '321px',
         boxShadow: `${mode !== 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgb(245, 245, 245)'} 0 1px 3px`,
@@ -16,12 +16,12 @@ export default function ({ name, season, mode, getText, price, diameter, height,
         transition: 'all 0.2s ease-out',
         cursor: 'pointer',
         '&:hover': {
-          transform: 'scale(1.04,1.04)',
+          transform: 'scale(1.02,1.02)',
         },
         display: 'flex',
         flexDirection: 'column',
         p: '5px',
-        margin: { xs: '5px 0 5px 0', sm: '5px 5px 5px 5px' },
+        margin: { xs: '6px', sm: '7px' },
 
         borderRadius: '10px',
       }}

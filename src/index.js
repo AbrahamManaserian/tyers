@@ -80,6 +80,12 @@ const router = createBrowserRouter([
       {
         path: '/signin',
         element: <SignIn />,
+        children: [
+          {
+            path: '/signin/:location',
+            element: <div>Abraham</div>,
+          },
+        ],
       },
       {
         path: '/signup',

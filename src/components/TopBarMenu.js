@@ -2,11 +2,63 @@ import { Badge, Box, Button, Grid, styled, Typography } from '@mui/material';
 import FlagMenu from './FlagMenu';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { AppContext } from '../App';
 import { textSideBar } from '../text';
 import { Link, useLocation } from 'react-router-dom';
 import { BusketIcon } from '../SVGIcons';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import { getAuth, signOut } from 'firebase/auth';
+
+export function UserMenu() {
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  function signOutUser() {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        // Sign-out successful.
+      })
+      .catch((error) => {
+        // An error happened.
+      });
+    setAnchorEl(null);
+  }
+  return (
+    <Box display="flex" alignContent="center">
+      <AccountCircleIcon
+        color="primary"
+        aria-controls={open ? 'basic-menu' : undefined}
+        aria-haspopup="true"
+        aria-expanded={open ? 'true' : undefined}
+        onClick={handleClick}
+        sx={{ marginRight: '10px', cursor: 'pointer' }}
+      />
+      <Menu
+        id="basic-menu"
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        MenuListProps={{
+          'aria-labelledby': 'basic-button',
+        }}
+      >
+        <MenuItem onClick={handleClose}>Profile</MenuItem>
+        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem onClick={signOutUser}>Logout</MenuItem>
+      </Menu>
+    </Box>
+  );
+}
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
@@ -20,6 +72,7 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
 export default function TopBarMenu() {
   const context = useContext(AppContext);
   const location = useLocation();
+  let url = new URL(window.location.href);
 
   const handleCLick = () => {
     if (context.darkMode === 'light') {
@@ -108,10 +161,18 @@ export default function TopBarMenu() {
           <DarkModeOutlinedIcon color="success" />
         )}
       </Box>
-      {/* <Typography variant="body1">Sign in</Typography> */}
-      <Link to="/signin" style={{ textDecoration: 'none' }}>
-        <Button variant="custom">{getText('signIn')}</Button>
-      </Link>
+      {context.user ? (
+        <UserMenu />
+      ) : (
+        <Link
+          to={
+            url.pathname.includes('signin') ? url.search : `/signin/?${location.pathname + location.search}`
+          }
+          style={{ textDecoration: 'none' }}
+        >
+          <Button variant="custom">{getText('signIn')}</Button>
+        </Link>
+      )}
     </Grid>
   );
 }

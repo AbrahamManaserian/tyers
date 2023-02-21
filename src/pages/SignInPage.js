@@ -11,10 +11,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { GoogleIcon } from '../SVGIcons';
 import { textSignInUp } from '../text';
 import { AppContext } from '../App';
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -30,15 +32,34 @@ function Copyright(props) {
 }
 
 export default function SignIn() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const auth = getAuth();
   const context = React.useContext(AppContext);
+  const [loading, setLoading] = React.useState(false);
+  const [error, seteError] = React.useState();
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    signInWithEmailAndPassword(auth, data.get('email'), data.get('password'))
+      .then((userCredential) => {
+        // Signed in
+        setLoading(false);
+        const user = userCredential.user;
+        navigate(`/${location.search.slice(2)}`);
+        // ...
+      })
+      .catch((error) => {
+        setLoading(false);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        seteError(errorCode);
+      });
   };
+
   const getText = (text) => {
     if (context.language === '1') {
       return textSignInUp[text].am;
@@ -60,6 +81,14 @@ export default function SignIn() {
             alignItems: 'center',
           }}
         >
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+            // onClick={()=>setLoading(false)}
+          >
+            {' '}
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -68,6 +97,8 @@ export default function SignIn() {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={() => seteError(false)}
+              error={!!error && error !== 'auth/wrong-password'}
               margin="normal"
               required
               fullWidth
@@ -76,8 +107,11 @@ export default function SignIn() {
               name="email"
               autoComplete="email"
               autoFocus
+              helperText={error && error !== 'auth/wrong-password' ? 'Incorrect entry.' : ''}
             />
             <TextField
+              error={error === 'auth/wrong-password'}
+              onChange={() => seteError(false)}
               margin="normal"
               required
               fullWidth
@@ -86,14 +120,21 @@ export default function SignIn() {
               type="password"
               id="password"
               autoComplete="current-password"
+              helperText={error === 'auth/wrong-password' ? 'Incorrect entry.' : ''}
             />
             <FormControlLabel
               control={<Checkbox value="remember" color="primary" />}
               label={getText('remember')}
             />
+            {/* <Link
+              component={RouterLink}
+              to={`/${location.search.slice(2)}`}
+              style={{ textDecoration: 'none' }}
+            > */}
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
               {getText('signIn')}
             </Button>
+            {/* </Link> */}
             <Button type="submit" fullWidth variant="outlined" sx={{ mb: 2, textTransform: 'none' }}>
               <Box sx={{ display: 'flex', paddingRight: '25px' }}>
                 <GoogleIcon />
@@ -107,7 +148,7 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link style={{ fontSize: '14px' }} component={RouterLink} to="/signup">
+                <Link style={{ fontSize: '14px' }} component={RouterLink} to={`/signup/${location.search}`}>
                   {getText('noAcount')}
                 </Link>
               </Grid>

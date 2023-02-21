@@ -11,10 +11,12 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
 import { GoogleIcon } from '../SVGIcons';
 import { textSignInUp } from '../text';
 import { AppContext } from '../App';
+import { createUserWithEmailAndPassword, getAuth, updateProfile } from 'firebase/auth';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 function Copyright(props) {
   return (
@@ -30,14 +32,37 @@ function Copyright(props) {
 }
 
 export default function SignUp() {
+  const [loading, setLoading] = React.useState(false);
+  const [error, setError] = React.useState();
   const context = React.useContext(AppContext);
+  const navigate = useNavigate();
+  const auth = getAuth();
+  const location = useLocation();
   const handleSubmit = (event) => {
+    setLoading(true);
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    createUserWithEmailAndPassword(auth, data.get('email'), data.get('password'))
+      .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        updateProfile(user, {
+          displayName: data.get('firstName') + ' ' + data.getAll('lastName'),
+        });
+        // console.log(user);
+        navigate(`/${location.search.slice(2)}`);
+        setLoading(false);
+        // ...
+      })
+      .catch((error) => {
+        setLoading(false);
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode);
+        setError(errorCode);
+        // ..
+      });
   };
   const getText = (text) => {
     if (context.language === '1') {
@@ -61,6 +86,14 @@ export default function SignUp() {
             alignItems: 'center',
           }}
         >
+          <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={loading}
+            // onClick={()=>setLoading(false)}
+          >
+            {' '}
+            <CircularProgress color="inherit" />
+          </Backdrop>
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
@@ -92,16 +125,25 @@ export default function SignUp() {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={() => setError()}
+                  error={error === 'auth/invalid-email' || error === 'auth/email-already-in-use'}
                   required
                   fullWidth
                   id="email"
                   label={getText('email')}
                   name="email"
                   autoComplete="email"
+                  helperText={
+                    error === 'auth/invalid-email' || error === 'auth/email-already-in-use'
+                      ? 'email-already-in-use'
+                      : ''
+                  }
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  onChange={() => setError()}
+                  error={error === 'auth/weak-password'}
                   required
                   fullWidth
                   name="password"
@@ -109,6 +151,7 @@ export default function SignUp() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
+                  helperText={error === 'auth/weak-password' ? 'at leat 6 characters' : ''}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -132,7 +175,7 @@ export default function SignUp() {
                 {/* <Link href="#" variant="body2">
                   Already have an account? Sign in
                 </Link> */}
-                <Link style={{ fontSize: '14px' }} component={RouterLink} to="/signin">
+                <Link style={{ fontSize: '14px' }} component={RouterLink} to={`/signin/${location.search}`}>
                   {getText('haveAccount')}
                 </Link>
               </Grid>

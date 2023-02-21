@@ -9,6 +9,7 @@ import '@fontsource/roboto/700.css';
 import { Box, createTheme, CssBaseline, Grid, ThemeProvider, Typography } from '@mui/material';
 import TopBarMenu from './components/TopBarMenu';
 import DrawerSideBarMenu from './components/DrawerSideBar';
+import useGetUser from './hooks/useGetUser';
 
 export const AppContext = createContext();
 export const getDesignTokens = (mode) => ({
@@ -191,7 +192,7 @@ export const getDesignTokens = (mode) => ({
 function App() {
   const localLanguage = localStorage.getItem('language');
   const localDarkMode = localStorage.getItem('darkMode');
-
+  const user = useGetUser();
   const [darkMode, setDarkMode] = useState(localDarkMode || 'light');
   const [language, setLanguage] = useState(localLanguage || '1');
   const theme = createTheme(getDesignTokens(darkMode || 'light'));
@@ -201,6 +202,7 @@ function App() {
         <CssBaseline />
         <AppContext.Provider
           value={{
+            user: user,
             language: language,
             setLanguage: setLanguage,
             darkMode: darkMode,

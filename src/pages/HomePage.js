@@ -244,7 +244,6 @@ export default function HomePage() {
     //   console.log();
     navigate(`/${url.search}`);
   };
-  console.log(tyres.length, filteredTyres.length);
   // console.log(inputs);
   return (
     <Grid padding="8px" item xs={12} container justifyContent="flex-start" alignItems="flex-start">

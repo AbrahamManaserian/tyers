@@ -110,7 +110,7 @@ export default function TopBarMenu() {
       }}
       item
       xs
-      lg={12}
+      // lg={12}
       justifyContent="flex-end"
       alignItems="center"
       container

@@ -1,4 +1,4 @@
-import { Box, Button, Grid, LinearProgress, Pagination, Typography } from '@mui/material';
+import { Box, Button, Grid, LinearProgress, Pagination, Skeleton, Typography } from '@mui/material';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AppContext } from '../App';
@@ -26,6 +26,9 @@ import {
 import { db, storage } from '../firebase';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 import Image1 from '../images/tyres/0.jpeg';
+import Topoffers from '../components/TopOffers';
+import useGetTyres from '../hooks/useGetTyres';
+import CardSceleton from '../components/CardSkeleton';
 
 const tyreNames = [
   'Nokian Tyres Hakka Van',
@@ -49,6 +52,7 @@ export default function HomePage() {
   let url = new URL(`http://localhost:3000/${location.search}`);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(+url.searchParams.get('page') || 1);
+  const topTyres = useGetTyres('21');
 
   const [tyres, setTyres] = useState([]);
   const [filteredTyres, setFilteredTyres] = useState([]);
@@ -246,8 +250,16 @@ export default function HomePage() {
   };
   // console.log(inputs);
   return (
-    <Grid padding="8px" item xs={12} container justifyContent="flex-start" alignItems="flex-start">
-      <Grid item xs={12} sm={12} md container alignItems="flex-start">
+    <Grid
+      padding="8px"
+      wrap="nowrap"
+      item
+      xs={12}
+      container
+      justifyContent="flex-start"
+      alignItems="flex-start"
+    >
+      <Grid item sx={{ width: '70%' }} xs={12} sm={12} md container alignItems="flex-start">
         {chooseTyre === 'tyre' && <ChooseTyres inputs={inputs} setInputs={setInputs} />}
         {chooseTyre === 'wheel' && (
           <ChooseWheels inputsWheels={inputsWheels} setInputsWheels={setInputsWheels} />
@@ -321,7 +333,7 @@ export default function HomePage() {
           </Grid>
         </Grid>
 
-        <Grid p="5px" container alignContent="flex-start" alignItems="flex-end" item xs={12}>
+        <Grid p="10px 5px 5px 5px" container alignContent="flex-start" alignItems="flex-end" item xs={12}>
           <Button
             onClick={() => handleClickSearch(chooseTyre)}
             startIcon={<SearchIcon />}
@@ -343,12 +355,23 @@ export default function HomePage() {
           item
           xs={12}
         >
+          {
+            <Typography
+              width="100%"
+              // variant="body3"
+              sx={{
+                textDecoration: 'underline',
+                textUnderlineOffset: '7px',
+                textDecorationThickness: '0.5px',
+                paddingBottom: '5px',
+              }}
+            >
+              {tyres.length ? getText('searchResult') : null}
+            </Typography>
+          }
           {filteredTyres.map((item, index) => {
-            // console.log(item);
             if (index >= (page - 1) * 40 && index < page * 40) {
               return (
-                // <div onClick={() => console.log(index)} >
-                // <Link to="/asd" key={index} className="cardlink">
                 <TyreCard
                   key={index}
                   getText={getText}
@@ -362,21 +385,43 @@ export default function HomePage() {
                   diameter={item.diameter}
                   price={item.price}
                 />
-                // </Link>
-                // </div>
               );
             }
           })}
-          <Grid item xs={12} container justifyContent="center">
+          <Grid
+            item
+            xs={12}
+            py="15px"
+            marginBottom="50px"
+            borderBottom={0.1}
+            container
+            justifyContent="center"
+          >
             {filteredTyres.length ? (
               <Pagination
                 count={Math.ceil(filteredTyres.length / 40)}
                 page={page}
                 onChange={handleChangePage}
               />
-            ) : null}
+            ) : (
+              <Typography>Choose parameters</Typography>
+            )}
           </Grid>
         </Grid>
+        {!topTyres.length ? (
+          <CardSceleton type="topTyres" getText={getText} darkMode={context.darkMode} />
+        ) : (
+          <Grid item xs={12} container justifyContent="center">
+            <Topoffers type="topTyres" getText={getText} tyres={topTyres} mode={context.darkMode} />
+          </Grid>
+        )}
+        {!topTyres.length ? (
+          <CardSceleton type="discountedItems" getText={getText} darkMode={context.darkMode} />
+        ) : (
+          <Grid item xs={12} container justifyContent="center" paddingY="45px">
+            <Topoffers type="discountedItems" getText={getText} tyres={topTyres} mode={context.darkMode} />
+          </Grid>
+        )}
 
         <OpenSettingsDrawer
           manufacturersState={manufacturersState}
@@ -391,8 +436,8 @@ export default function HomePage() {
 
       <Grid
         item
-        xs={12}
-        sm={12}
+        xs={8}
+        sm={8}
         md="auto"
         sx={{ display: { xs: 'none', sm: 'none', md: 'grid' } }}
         container

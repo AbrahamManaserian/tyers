@@ -165,6 +165,21 @@ export const textHomePage = {
     ru: 'Диаметр',
     am: 'Տրամագիծը',
   },
+  discountedItems: {
+    en: 'Discounted items',
+    ru: 'Товары со скидкой',
+    am: 'Զեղչված ապրանքներ',
+  },
+  topTyres: {
+    en: 'Top tires',
+    ru: 'Топ шины',
+    am: 'Տոպ անվադողեր',
+  },
+  searchResult: {
+    en: 'Searching results',
+    ru: 'Результаты поиска',
+    am: 'Որոնման արդյունքները',
+  },
   summer: {
     en: 'Summer',
     ru: 'Летние',

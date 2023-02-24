@@ -211,7 +211,7 @@ function App() {
         >
           <Grid item container xs={12} alignItems="flex-start">
             <SideBarMenu />
-            <Grid item xs container alignItems="center">
+            <Grid item xs sx={{ width: '80%' }} container alignItems="center">
               <Grid
                 item
                 xs

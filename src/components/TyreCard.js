@@ -2,12 +2,25 @@ import { Box, Button, Typography } from '@mui/material';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { Link } from 'react-router-dom';
-export default function ({ name, season, mode, getText, price, diameter, height, width, imgUrl, id }) {
+export default function ({
+  name,
+  season,
+  mode,
+  getText,
+  price,
+  diameter,
+  height,
+  width,
+  imgUrl,
+  id,
+  widthBox,
+}) {
   return (
     <Box
       sx={{
         //   rgb(245, 245, 245)
-        width: { xs: '46%', sm: '180px' },
+        width: { xs: '48%', sm: '180px' },
+        minWidth: widthBox,
         overflow: 'hidden',
         height: '321px',
         boxShadow: `${mode !== 'dark' ? 'rgba(0, 0, 0, 0.3)' : 'rgb(245, 245, 245)'} 0 1px 3px`,
@@ -21,7 +34,7 @@ export default function ({ name, season, mode, getText, price, diameter, height,
         display: 'flex',
         flexDirection: 'column',
         p: '5px',
-        margin: { xs: '6px', sm: '7px' },
+        margin: { xs: '6px 1px 6px 1px', sm: '7px' },
 
         borderRadius: '10px',
       }}

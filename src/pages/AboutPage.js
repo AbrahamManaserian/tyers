@@ -84,7 +84,7 @@ const data = {
   price: 28000,
 };
 export default function AboutPage() {
-  async function asd(diameter, name, width, height, price) {
+  async function asd(diameter, name, width, height, price, season) {
     const docRefDiameter = collection(db, 'tyres', diameter, diameter);
 
     const docRefAll = collection(db, 'tyres');
@@ -99,7 +99,7 @@ export default function AboutPage() {
       seller: '',
       price: 34000,
       quantity: 4,
-      season: 'summer',
+      season: season,
       id: name,
       smallImage:
         'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
@@ -122,7 +122,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -140,7 +140,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -158,7 +158,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -176,7 +176,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -194,7 +194,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -212,7 +212,7 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
@@ -230,16 +230,18 @@ export default function AboutPage() {
         price: price,
         quantity: 4,
         id: name,
-        season: 'summer',
+        season: season,
         smallImage:
           'https://firebasestorage.googleapis.com/v0/b/tyres-3e0f1.appspot.com/o/tyres%2F4KubWFLnyJr1c2DnauH7%2Fsmall?alt=media&token=222022b1-a95b-47b8-be82-7a5ee414c30e',
       },
     });
   }
-  for (let i = 0; i < 200; i++) {
-    // asd(`${12 + i}`, `I-000089${i}`, `245`, `45`, 21000 + i * 100);
+  for (let i = 0; i < 10; i++) {
+    // asd(`${12}`, `I-000026${i}`, `165`, `65`, 13500 + i * 1000, i % 2 ? 'winter' : 'summer');
+    console.log(i);
   }
-  // asd('17', 'I-0000051', '245', '35');
+  // asd('13', 'I-0000002', '185', '55', 15000, 'summer');
+  // summer winter
   return (
     <Grid item container xs={12}>
       About page

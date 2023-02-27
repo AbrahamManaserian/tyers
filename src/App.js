@@ -193,9 +193,9 @@ function App() {
   const localLanguage = localStorage.getItem('language');
   const localDarkMode = localStorage.getItem('darkMode');
   const user = useGetUser();
-  const [darkMode, setDarkMode] = useState(localDarkMode || 'light');
-  const [language, setLanguage] = useState(localLanguage || '1');
-  const theme = createTheme(getDesignTokens(darkMode || 'light'));
+  const [darkMode, setDarkMode] = useState(localDarkMode || 'dark');
+  const [language, setLanguage] = useState(localLanguage || '2');
+  const theme = createTheme(getDesignTokens(darkMode || 'dark'));
   return (
     <div style={{ position: 'relative' }}>
       <ThemeProvider theme={theme}>

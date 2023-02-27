@@ -52,7 +52,8 @@ export default function HomePage() {
   let url = new URL(`http://localhost:3000/${location.search}`);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(+url.searchParams.get('page') || 1);
-  const topTyres = useGetTyres('21');
+  const topTyres = useGetTyres('13');
+  const discountedTyres = useGetTyres('14');
 
   const [tyres, setTyres] = useState([]);
   const [filteredTyres, setFilteredTyres] = useState([]);
@@ -392,8 +393,8 @@ export default function HomePage() {
             item
             xs={12}
             py="15px"
-            marginBottom="50px"
-            borderBottom={0.1}
+            // marginBottom="50px"
+            // borderBottom={0.1}
             container
             justifyContent="center"
           >
@@ -403,24 +404,32 @@ export default function HomePage() {
                 page={page}
                 onChange={handleChangePage}
               />
-            ) : (
-              <Typography>Choose parameters</Typography>
-            )}
+            ) : // <Typography>Choose parameters</Typography>
+            null}
           </Grid>
         </Grid>
-        {!topTyres.length ? (
+        {!topTyres.length && !url.search ? (
           <CardSceleton type="topTyres" getText={getText} darkMode={context.darkMode} />
         ) : (
-          <Grid item xs={12} container justifyContent="center">
-            <Topoffers type="topTyres" getText={getText} tyres={topTyres} mode={context.darkMode} />
-          </Grid>
+          !url.search && (
+            <Grid item xs={12} container justifyContent="center">
+              <Topoffers type="topTyres" getText={getText} tyres={topTyres} mode={context.darkMode} />
+            </Grid>
+          )
         )}
-        {!topTyres.length ? (
+        {!discountedTyres.length && !url.search ? (
           <CardSceleton type="discountedItems" getText={getText} darkMode={context.darkMode} />
         ) : (
-          <Grid item xs={12} container justifyContent="center" paddingY="45px">
-            <Topoffers type="discountedItems" getText={getText} tyres={topTyres} mode={context.darkMode} />
-          </Grid>
+          !url.search && (
+            <Grid item xs={12} container justifyContent="center" paddingY="45px">
+              <Topoffers
+                type="discountedItems"
+                getText={getText}
+                tyres={discountedTyres}
+                mode={context.darkMode}
+              />
+            </Grid>
+          )
         )}
 
         <OpenSettingsDrawer

@@ -7,7 +7,7 @@ export default function Topoffers({ getText, tyres, mode, type }) {
   const [index, setIndex] = useState(0);
   const windowSize = useRef([window.innerWidth, window.innerHeight]);
   const timeoutRef = useRef(null);
-  const delay = 6000;
+  const delay = 2000;
 
   function resetTimeout() {
     if (timeoutRef.current) {
@@ -26,9 +26,14 @@ export default function Topoffers({ getText, tyres, mode, type }) {
             } else if (windowSize.current[0] >= 600 && windowSize.current[0] < 900) {
               length = Math.ceil((tyres.length - 1) / 2);
             } else {
-              length = Math.ceil((tyres.length - 1) / 3);
+              length = Math.floor((tyres.length - 1) / 3);
+              // console.log((tyres.length - 1) / 3);
             }
-            return prevIndex === length ? 0 : prevIndex + 1;
+            if (prevIndex === length) {
+              return 0;
+            } else {
+              return prevIndex + 1;
+            }
           }),
         delay
       );
@@ -38,7 +43,7 @@ export default function Topoffers({ getText, tyres, mode, type }) {
       };
     }
   }, [index, tyres]);
-
+  // console.log(index);
   return (
     <Box
       sx={{
